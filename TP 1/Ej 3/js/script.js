@@ -1,4 +1,4 @@
-"us strict";
+"use strict";
 
 let ctx = document.querySelector("#myCanvas").getContext("2d");
 
