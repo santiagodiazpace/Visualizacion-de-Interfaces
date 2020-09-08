@@ -3,15 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>TP Entregable - Santiago Diaz Pace</title>
 
 </head>
 <body>
 
-    <input class="input1" type="file">
-    <canvas class="canvas1" width="800" height="600"> </canvas>
-    <button onclick="document.querySelector('.input1').click();">Select File ...</button>
+    <input id = "myInput" type="file">
+    <canvas id = "myCanvas" width="800" height="600"> </canvas>
+    <button onclick="document.querySelector('#myInput').click();">Select File ...</button>
+
+    <section>
+        <form action="" class="herramienta">
+            <input type="radio" id="pintar" name="pintar" value="pintar">
+            <label for="male">Pintar</label><br>
+            <input type="radio" id="borrar" name="borrar" value="borrar">
+            <label for="female">Borrar</label><br>
+        </form>
+    </section>
+
+    <section>
+        <form action="" class="pinceles">
+            <input type="radio" id="three" name="pixel" value="3">
+            <label for="male">3 Pixeles</label><br>
+            <input type="radio" id="five" name="pixel" value="5">
+            <label for="other">5 Pixeles</label>
+        </form>
+    </section>
 
 </body>
 <script src="js/script.js"></script>

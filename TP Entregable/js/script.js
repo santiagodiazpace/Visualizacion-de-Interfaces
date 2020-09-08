@@ -1,16 +1,14 @@
 "use strict";
 
 
-//get component references
-let canvas = document.querySelector('.canvas1');
-let input = document.querySelector('.input1');
+let canvas = document.querySelector("#myCanvas");
+let input = document.querySelector("#myInput");
+let context = canvas.getContext('2d');
 
-// clear canvas
-var context = canvas.getContext('2d');
 context.fillStyle = "#024359"; // canvas background color
 context.fillRect(0, 0, canvas.width, canvas.height);
 
-// when click OK in the File Dialog
+// Cargar imagen
 input.onchange = e => {
 
     // getting a hold of the file reference
@@ -25,7 +23,6 @@ input.onchange = e => {
         let content = readerEvent.target.result; // this is the content!
 
         let image = new Image();
-        //image.crossOrigin = 'Anonymous';
 
         image.src = content;
 
@@ -35,25 +32,14 @@ input.onchange = e => {
             let imageScaledHeight = canvas.width * imageAspectRatio;
 
             // draw image on canvas
-            context.drawImage(this, 0, 0, imageScaledWidth, imageScaledHeight);
+            context.drawImage(this, 0, 0);
 
             // get imageData from content of canvas
             let imageData = context.getImageData(0, 0, imageScaledWidth, imageScaledHeight);
-
-            // modify imageData
-            for (let j = 0; j < imageData.height; j++) {
-                for (let i = 0; i < imageData.width; i++) {
-                    if (i % 2 == 0) {
-                        let index = (i + imageData.width * j) * 4;
-                        imageData.data[index + 0] = 0;
-                        imageData.data[index + 1] = 0;
-                        imageData.data[index + 2] = 0;
-                    }
-                }
-            }
             
             // draw the modified image
             context.putImageData(imageData, 0, 0);
         }
     }
 }
+
