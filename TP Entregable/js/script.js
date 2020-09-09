@@ -38,7 +38,7 @@ input.onchange = e => {
             // get imageData from content of canvas
             imageData = context.getImageData(0, 0, imageScaledWidth, imageScaledHeight);
             
-            efectoGris();
+            aplicarFiltroSepia();
 
             // draw the modified image
             context.putImageData(imageData, 0, 0);
@@ -47,7 +47,7 @@ input.onchange = e => {
 }
 
 
-function efectoGris() {
+function aplicarFiltroGris() {
     let pixels = imageData.data;
     let numPixels = (imageData.width * imageData.height);
 
@@ -64,3 +64,36 @@ function efectoGris() {
     }
 }
 
+function aplicarFiltroInvertir() {
+    let pixels = imageData.data;
+    let numPixels = (imageData.width * imageData.height);
+
+    for ( let i = 0; i < numPixels; i++ ) {
+        let r = pixels[ i * 4 ];
+        let g = pixels[ i * 4 + 1 ];
+        let b = pixels[ i * 4 + 2 ];
+ 
+        pixels[ i * 4 ] = 255 - r;
+        pixels[ i * 4 + 1 ] = 255 - g;
+        pixels[ i * 4 + 2 ] = 255 - b;
+    }
+}
+
+function aplicarFiltroSepia() {
+    let pixels = imageData.data,
+    let numPixels = imageData.width * imageData.height;
+
+    for ( var i = 0; i < numPixels; i++ ) {
+        let r = pixels[ i * 4 ];
+        let g = pixels[ i * 4 + 1 ];
+        let b = pixels[ i * 4 + 2 ];
+
+        pixels[ i * 4 ] = 255 - r;
+        pixels[ i * 4 + 1 ] = 255 - g;
+        pixels[ i * 4 + 2 ] = 255 - b;
+
+        pixels[ i * 4 ] = ( r * .393 ) + ( g *.769 ) + ( b * .189 );
+        pixels[ i * 4 + 1 ] = ( r * .349 ) + ( g *.686 ) + ( b * .168 );
+        pixels[ i * 4 + 2 ] = ( r * .272 ) + ( g *.534 ) + ( b * .131 );
+    }
+}
