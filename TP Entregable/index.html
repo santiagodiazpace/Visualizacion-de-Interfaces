@@ -8,33 +8,47 @@
 
 </head> 
 <body>
+    <div>
+        <input id="myInput" type="file">
+        <canvas id="myCanvas" width="900" height="500"> </canvas>
 
-    <input id="myInput" type="file">
-    <canvas id="myCanvas" width="900" height="500"> </canvas>
-    <button onclick="document.querySelector('#myInput').click();">Select File ...</button>
+        <button onclick="document.querySelector('#myInput').click();">Seleccionar archivo</button>
+
+        <button id="btnLimpiar">Limpiar</button>
+
+        <a id="btnDownload" download="imagen.jpg"><button type="button" onClick="descargarImagen()">Descargar</button></a>
+        
+        <button id="btnBinario">Binarizacion</button>
+
+        <button id="btnNegativo">Negativo</button>
+
+        <button id="btnSepia">Sepia</button>
+
+        <button id="btnContraste">Contraste</button>
+
+        <button id="btnGrises">Grises</button>
+    </div>
 
 
-    <button id="btnNewCanvas">New</button>
-    <a id="btnDownload" download="imagen.jpg"><button type="button" onClick="descargarImagen()">Descargar</button></a>
-    <button id="btnSaturar">Gris</button>
-
-<!--     <section>
-        <form action="" class="herramienta">
-            <input type="radio" id="pintar" name="pintar" value="pintar">
+    <section>
+        <div class="herramienta">
+            <input type="radio" name="accion" value="pintar" checked = "checked">
             <label for="male">Pintar</label><br>
-            <input type="radio" id="borrar" name="borrar" value="borrar">
+            <input type="radio" name="accion" value="borrar">
             <label for="female">Borrar</label><br>
-        </form>
+        </div>
     </section>
 
     <section>
         <form action="" class="pinceles">
-            <input type="radio" id="three" name="pixel" value="3">
+            <input type="radio" name="pixel" value="1" checked = "checked">
+            <label for="male">1 Pixel</label><br>
+            <input type="radio" name="pixel" value="3">
             <label for="male">3 Pixeles</label><br>
-            <input type="radio" id="five" name="pixel" value="5">
+            <input type="radio" name="pixel" value="5">
             <label for="other">5 Pixeles</label>
         </form>
-    </section> -->
+    </section>
 
 </body>
 <script src="js/script.js"></script>
