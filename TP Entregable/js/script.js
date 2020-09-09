@@ -1,11 +1,12 @@
 "use strict";
 
+let imageData;
 
 let canvas = document.querySelector("#myCanvas");
 let input = document.querySelector("#myInput");
 let context = canvas.getContext('2d');
 
-context.fillStyle = "#024359"; // canvas background color
+context.fillStyle = "#FFFFFF"; // canvas fondo color blanco
 context.fillRect(0, 0, canvas.width, canvas.height);
 
 // Cargar imagen
@@ -35,11 +36,31 @@ input.onchange = e => {
             context.drawImage(this, 0, 0);
 
             // get imageData from content of canvas
-            let imageData = context.getImageData(0, 0, imageScaledWidth, imageScaledHeight);
+            imageData = context.getImageData(0, 0, imageScaledWidth, imageScaledHeight);
             
+            efectoGris();
+
             // draw the modified image
             context.putImageData(imageData, 0, 0);
         }
+    }
+}
+
+
+function efectoGris() {
+    let pixels = imageData.data;
+    let numPixels = (imageData.width * imageData.height);
+
+    for ( let i = 0; i < numPixels; i++ ) {
+        let r = pixels[ i * 4 ];
+        let g = pixels[ i * 4 + 1 ];
+        let b = pixels[ i * 4 + 2 ];
+
+        let gris = ( r + g + b ) / 3;
+
+        pixels[ i * 4 ] = gris;
+        pixels[ i * 4 + 1 ] = gris;
+        pixels[ i * 4 + 2 ] = gris;
     }
 }
 
