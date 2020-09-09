@@ -1,19 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang = "en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" conten="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <title>TP Entregable - Santiago Diaz Pace</title>
 
-</head>
+</head> 
 <body>
 
-    <input id = "myInput" type="file">
-    <canvas id = "myCanvas" width="800" height="400"> </canvas>
+    <input id="myInput" type="file">
+    <canvas id="myCanvas" width="900" height="500"> </canvas>
     <button onclick="document.querySelector('#myInput').click();">Select File ...</button>
 
-    <section>
+
+    <button id="btnNewCanvas">New</button>
+    <a id="btnDownload" download="imagen.jpg"><button type="button" onClick="descargarImagen()">Descargar</button></a>
+    <button id="btnSaturar">Gris</button>
+
+<!--     <section>
         <form action="" class="herramienta">
             <input type="radio" id="pintar" name="pintar" value="pintar">
             <label for="male">Pintar</label><br>
@@ -29,7 +34,7 @@
             <input type="radio" id="five" name="pixel" value="5">
             <label for="other">5 Pixeles</label>
         </form>
-    </section>
+    </section> -->
 
 </body>
 <script src="js/script.js"></script>
