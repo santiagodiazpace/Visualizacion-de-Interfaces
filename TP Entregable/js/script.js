@@ -29,9 +29,7 @@ selectImage.onchange = e => {
                 let imageScaledHeight = canvas.width * imageAspectRatio;
     
                 ctx.drawImage(this, 0, 0, imageScaledWidth, imageScaledHeight);
-                // se resetea el canvas con la imagen.
                 imageData = ctx.getImageData(0, 0, imageScaledWidth, imageScaledHeight);
-
                 ctx.putImageData(imageData, 0, 0);
             }
         }
