@@ -36,11 +36,10 @@ selectImage.onchange = e => {
             }
         }
     }
- /*    else {
-        alert("El archivo que quiere subir no es válido.")
-    } */
 }
 
+
+// Formato de imagen valido
 function imagenValida(image){
     let salida = false;
     let tipo = image['type'];
@@ -119,8 +118,8 @@ document.querySelector("#btnSepia").addEventListener("click", function() {
     ctx.putImageData(imageData, 0, 0);
 });
 
-// Filtro contraste
-document.querySelector("#btnContraste").addEventListener("click", function() {
+// Filtro saturacion
+document.querySelector("#btnSaturacion").addEventListener("click", function() {
     let contraste = 100; // Valor por defecto
     let factor = ( 259 * ( contraste + 255 ) ) / ( 255 * ( 259 - contraste ) );
     for(let x = 0; x < canvas.width - 1; x++) {
@@ -148,8 +147,21 @@ document.querySelector("#btnGrises").addEventListener("click", function() {
     ctx.putImageData(imageData, 0, 0);
 });
 
+// Filtro brillo
+document.querySelector("#btnBrillo").addEventListener("click", function() {
+let factor = 75;  // valor por defecto
+for(let x = 0; x < canvas.width - 1; x++) {
+    for(let y = 0; y < canvas.height; y++) {
+        let newRed = Math.min(getRed(x, y) + factor, 255);
+        let newGreen = Math.min(getGreen(x, y) + factor, 255);
+        let newBlue = Math.min(getBlue(x, y) + factor, 255);
+        setPixel(imageData, x, y, newRed, newGreen, newBlue, 255);
+    }
+}
+ctx.putImageData(imageData, 0, 0);
+});
 
-
+// Descargar
 function descargarImagen() {
     let download = document.querySelector("#btnDownload");
     let image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
@@ -162,21 +174,15 @@ let cleanCanvas = document.querySelector("#btnLimpiar");
 cleanCanvas.addEventListener("click", function() {
     for(let x = 0; x < canvas.width; x++) {
         for(let y = 0; y < canvas.height; y++) {
-            limpiarLienzo(x, y, 255, 255, 255);
+            ejecutar(x, y, 255, 255, 255);
         }
     }
     ctx.putImageData(imageData, 0, 0);
 });
 
-function ejecutar(x, y, r, g, b) {
-    if ((x < canvas.width) && (x >= 0) && (y < canvas.height) && (y >= 0)) {
-        setPixel(imageData, x, y, r, g, b, 255);
-    }
-}
 
-
-
-let tool = "dibujar";
+// Herramienta dibujar o borrar
+let tool = "dibujar";  // por defecto
 let toolController = document.querySelector(".herramienta").addEventListener("change", function() {
     let execution = document.getElementsByName("accion");
     for(let i = 0; i < execution.length; i ++) {
@@ -185,17 +191,6 @@ let toolController = document.querySelector(".herramienta").addEventListener("ch
         }
     }
 })
-
-/* // Seleccionar lapiz
-let size = 1;
-document.querySelector(".lapiz").addEventListener("change", function() {
-    let radio = document.getElementsByName("pixel");
-    for(let i = 0; i < radio.length; i ++) {
-        if(radio[i].checked) {
-            size = radio[i].value;
-        }
-    }
-}) */
 
 
 // Dibujar
@@ -220,8 +215,7 @@ canvas.addEventListener("mousemove", function(e) {
         }
         let x = e.pageX - this.offsetLeft;
         let y = e.pageY - this.offsetTop;
-        // Unirá puntos sólo cuando haya más de un pixel pintado en el canvas.
-        if(lines.length > 0) {
+        if(lines.length > 0) {  // si hay pixels dibujados
             let distanceY = y - lines[lines.length - 1][1];
             let distanceX = x - lines[lines.length - 1][0];
             let moduleY = Math.abs(distanceY);
@@ -239,22 +233,10 @@ canvas.addEventListener("mousemove", function(e) {
                 auxX += distanceX / aux;
                 auxY += distanceY / aux;
                 ejecutar(Math.round(auxX), Math.round(auxY), r, g, b);
-/*                 if(size == 1) {
-                    limpiarLienzo(Math.round(auxX), Math.round(auxY), r, g, b);
-                }
-                else {
-                    executionToolWithSize(Math.round(auxX), Math.round(auxY), size, r, g, b); 
-                } */
             }
         }   
         lines.push([x, y]);
         ejecutar(x, y, r, g, b);
-/*         if(size == 1) {
-            ejecutar(x, y, r, g, b);
-        }
-        else {
-            executionToolWithSize(x, y, size, r, g, b);
-        } */
         ctx.putImageData(imageData, 0, 0);
     }
 });
@@ -269,12 +251,8 @@ canvas.onmouseleave = (function() {
     lines = [];
 })
 
-
-/* function executionToolWithSize(x, y, size, r, g, b) {
-    let distance = size - 1;
-    for(let horiz = x - distance; horiz <= x + distance; horiz ++) {
-        for(let vert = y - distance; vert <= y + distance; vert ++) {
-            executionTool(horiz, vert, r, g, b);
-        }
+function ejecutar(x, y, r, g, b) {
+    if ((x < canvas.width) && (x >= 0) && (y < canvas.height) && (y >= 0)) {
+        setPixel(imageData, x, y, r, g, b, 255);
     }
-} */
+}

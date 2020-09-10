@@ -6,3 +6,31 @@
 canvas {
     border: 1px solid #000000;
 }
+
+h2 {
+    color:grey;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    margin-left: 30px;
+}
+
+header {
+    background-color: grey;
+}
+
+.contenedor {
+    display: flex;
+    flex-direction: row;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+section, aside {
+    margin-left: 30px;
+}
+
+.MasFiltros {
+    margin-top: 10px;
+}

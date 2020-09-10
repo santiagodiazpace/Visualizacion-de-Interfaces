@@ -8,52 +8,46 @@
 
 </head> 
 <body>
-    <div>
-        <input id="myInput" type="file">
-        <canvas id="myCanvas" width="900" height="500"> </canvas>
+    <header>
+        <h1>Paint App</h1>
+    </header>
+    <div class="contenedor">
+        <section>
+            <input id="myInput" type="file">
+            <canvas id="myCanvas" width="900" height="500"> </canvas>
+        </section>
+        <aside>
+            <div>
+                <h2>Seleccione operación:</h2>
+                <button onclick="document.querySelector('#myInput').click();">Seleccionar archivo</button>
+                <a id="btnDownload" download="imagen.jpg"><button type="button" onClick="descargarImagen()">Descargar</button></a>       
+                <button id="btnLimpiar">Limpiar</button>
+            </div>
+
+            <div>
+                <h2>Seleccione filtro:</h2>
+                <button id="btnBinario">Binarizacion</button>
+                <button id="btnNegativo">Negativo</button>
+                <button id="btnSepia">Sepia</button>
+                <button id="btnGrises">Grises</button>
+                <button id="btnBrillo">Brillo</button>
+            </div>
+
+            <div class="MasFiltros">
+                <button id="btnSaturacion">Saturacion</button>
+            </div>
+
+            <div>
+                <h2>Seleccione herramienta:</h2>
+                <div class="herramienta">
+                    <input type="radio" name="accion" value="dibujar" checked = "checked">
+                    <label for="dibujar">Dibujar</label><br>
+                    <input type="radio" name="accion" value="borrar">
+                    <label for="borrar">Borrar</label><br>
+                </div>
+            </div>
+        </aside>
     </div>
-
-    <div>
-        <button onclick="document.querySelector('#myInput').click();">Seleccionar archivo</button>
-        <button id="btnLimpiar">Limpiar</button>
-        <a id="btnDownload" download="imagen.jpg"><button type="button" onClick="descargarImagen()">Descargar</button></a>       
-    </div>
-
-    <div>
-        <button id="btnBinario">Binarizacion</button>
-        <button id="btnNegativo">Negativo</button>
-        <button id="btnSepia">Sepia</button>
-        <button id="btnContraste">Contraste</button>
-        <button id="btnGrises">Grises</button>
-    </div>
-
-    <div>
-        <div class="herramienta">
-            <input type="radio" name="accion" value="dibujar" checked = "checked">
-            <label for="dibujar">Dibujar</label><br>
-            <input type="radio" name="accion" value="borrar">
-            <label for="borrar">Borrar</label><br>
-        </div>
-    </div>
-
-<!--     <div>
-        <select name="select">
-            <option value="dibujar" selected>dibujar</option> 
-            <option value="borrar" >borrar</option>
-          </select>
-    </div> -->
-
-<!--      <section>
-        <form action="" class="lapiz">
-            <input type="radio" name="pixel" value="1" checked = "checked">
-            <label for="male">1 Pixel</label><br>
-            <input type="radio" name="pixel" value="3">
-            <label for="male">3 Pixeles</label><br>
-            <input type="radio" name="pixel" value="5">
-            <label for="other">5 Pixeles</label>
-        </form>
-    </section> -->
-
 </body>
 <script src="js/script.js"></script>
 </html>
