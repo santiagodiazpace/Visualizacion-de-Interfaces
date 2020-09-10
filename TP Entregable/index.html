@@ -11,36 +11,40 @@
     <div>
         <input id="myInput" type="file">
         <canvas id="myCanvas" width="900" height="500"> </canvas>
+    </div>
 
+    <div>
         <button onclick="document.querySelector('#myInput').click();">Seleccionar archivo</button>
-
         <button id="btnLimpiar">Limpiar</button>
+        <a id="btnDownload" download="imagen.jpg"><button type="button" onClick="descargarImagen()">Descargar</button></a>       
+    </div>
 
-        <a id="btnDownload" download="imagen.jpg"><button type="button" onClick="descargarImagen()">Descargar</button></a>
-        
+    <div>
         <button id="btnBinario">Binarizacion</button>
-
         <button id="btnNegativo">Negativo</button>
-
         <button id="btnSepia">Sepia</button>
-
         <button id="btnContraste">Contraste</button>
-
         <button id="btnGrises">Grises</button>
     </div>
 
-
-    <section>
+    <div>
         <div class="herramienta">
-            <input type="radio" name="accion" value="pintar" checked = "checked">
-            <label for="male">Pintar</label><br>
+            <input type="radio" name="accion" value="dibujar" checked = "checked">
+            <label for="dibujar">Dibujar</label><br>
             <input type="radio" name="accion" value="borrar">
-            <label for="female">Borrar</label><br>
+            <label for="borrar">Borrar</label><br>
         </div>
-    </section>
+    </div>
 
-    <section>
-        <form action="" class="pinceles">
+<!--     <div>
+        <select name="select">
+            <option value="dibujar" selected>dibujar</option> 
+            <option value="borrar" >borrar</option>
+          </select>
+    </div> -->
+
+<!--      <section>
+        <form action="" class="lapiz">
             <input type="radio" name="pixel" value="1" checked = "checked">
             <label for="male">1 Pixel</label><br>
             <input type="radio" name="pixel" value="3">
@@ -48,7 +52,7 @@
             <input type="radio" name="pixel" value="5">
             <label for="other">5 Pixeles</label>
         </form>
-    </section>
+    </section> -->
 
 </body>
 <script src="js/script.js"></script>

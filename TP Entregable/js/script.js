@@ -10,6 +10,8 @@ let r = 0;
 let g = 0;
 let b = 0;
 
+
+// Cargar imagen
 selectImage.onchange = e => {
     let file = e.target.files[0];
     if(imagenValida(file)) {
@@ -73,6 +75,7 @@ function getBlue(x, y) {
 }
 
 
+//Filtro binarizacion
 document.querySelector("#btnBinario").addEventListener("click", function(){
     let umbral = 50;
     for(let x = 0; x < canvas.width - 1; x++) {
@@ -88,7 +91,7 @@ document.querySelector("#btnBinario").addEventListener("click", function(){
     ctx.putImageData(imageData,0,0);
 })
 
-
+// Filtro Negativo
 document.querySelector("#btnNegativo").addEventListener("click", function() {
     for(let x = 0; x < canvas.width - 1; x++) {
         for(let y = 0; y < canvas.height; y++) {
@@ -102,6 +105,7 @@ document.querySelector("#btnNegativo").addEventListener("click", function() {
     ctx.putImageData(imageData, 0, 0);
 });
 
+// Filtro Sepia
 document.querySelector("#btnSepia").addEventListener("click", function() {
     for(let x = 0; x < canvas.width - 1; x++) {
         for(let y = 0; y < canvas.height; y++) {    
@@ -115,7 +119,7 @@ document.querySelector("#btnSepia").addEventListener("click", function() {
     ctx.putImageData(imageData, 0, 0);
 });
 
-
+// Filtro contraste
 document.querySelector("#btnContraste").addEventListener("click", function() {
     let contraste = 100; // Valor por defecto
     let factor = ( 259 * ( contraste + 255 ) ) / ( 255 * ( 259 - contraste ) );
@@ -130,7 +134,7 @@ document.querySelector("#btnContraste").addEventListener("click", function() {
     ctx.putImageData(imageData, 0, 0);
 });
 
-
+// Filtro grises
 document.querySelector("#btnGrises").addEventListener("click", function() {
     for(let x = 0; x < canvas.width - 1; x++) {
         for(let y = 0; y < canvas.height; y++) {    
@@ -153,6 +157,7 @@ function descargarImagen() {
 }
 
 
+// Limpiar lienzo
 let cleanCanvas = document.querySelector("#btnLimpiar");
 cleanCanvas.addEventListener("click", function() {
     for(let x = 0; x < canvas.width; x++) {
@@ -163,7 +168,7 @@ cleanCanvas.addEventListener("click", function() {
     ctx.putImageData(imageData, 0, 0);
 });
 
-function limpiarLienzo(x, y, r, g, b) {
+function ejecutar(x, y, r, g, b) {
     if ((x < canvas.width) && (x >= 0) && (y < canvas.height) && (y >= 0)) {
         setPixel(imageData, x, y, r, g, b, 255);
     }
@@ -171,37 +176,29 @@ function limpiarLienzo(x, y, r, g, b) {
 
 
 
-
-
-
-
-
-// ---------------------------- SELECCIONAR HERRAMIENTA ----------------------------- //
-
-let tool = "pintar";
+let tool = "dibujar";
 let toolController = document.querySelector(".herramienta").addEventListener("change", function() {
     let execution = document.getElementsByName("accion");
     for(let i = 0; i < execution.length; i ++) {
-        if(execution[i].checked) {
+        if (execution[i].checked) {
             tool = execution[i].value;
         }
     }
 })
 
-// ---------------------------- SELECCIONAR PINCEL ----------------------------- //
-
+/* // Seleccionar lapiz
 let size = 1;
-document.querySelector(".pinceles").addEventListener("change", function() {
+document.querySelector(".lapiz").addEventListener("change", function() {
     let radio = document.getElementsByName("pixel");
     for(let i = 0; i < radio.length; i ++) {
         if(radio[i].checked) {
             size = radio[i].value;
         }
     }
-})
+}) */
 
-// ---------------------------- UTILIZAR HERRAMIENTA ----------------------------- //
 
+// Dibujar
 let action = false;
 let lines = [];
 
@@ -211,7 +208,7 @@ canvas.addEventListener("mousedown", function() {
 
 canvas.addEventListener("mousemove", function(e) {
     if (action) {
-        if(tool == "pintar") {
+        if(tool == "dibujar") {
             r = 0;
             g = 0;
             b = 0;
@@ -241,21 +238,23 @@ canvas.addEventListener("mousemove", function(e) {
             for(let i = 0; i < aux; i ++) {
                 auxX += distanceX / aux;
                 auxY += distanceY / aux;
-                if(size == 1) {
+                ejecutar(Math.round(auxX), Math.round(auxY), r, g, b);
+/*                 if(size == 1) {
                     limpiarLienzo(Math.round(auxX), Math.round(auxY), r, g, b);
                 }
                 else {
                     executionToolWithSize(Math.round(auxX), Math.round(auxY), size, r, g, b); 
-                }
+                } */
             }
         }   
         lines.push([x, y]);
-        if(size == 1) {
-            limpiarLienzo(x, y, r, g, b);
+        ejecutar(x, y, r, g, b);
+/*         if(size == 1) {
+            ejecutar(x, y, r, g, b);
         }
         else {
             executionToolWithSize(x, y, size, r, g, b);
-        }
+        } */
         ctx.putImageData(imageData, 0, 0);
     }
 });
@@ -271,11 +270,11 @@ canvas.onmouseleave = (function() {
 })
 
 
-function executionToolWithSize(x, y, size, r, g, b) {
+/* function executionToolWithSize(x, y, size, r, g, b) {
     let distance = size - 1;
     for(let horiz = x - distance; horiz <= x + distance; horiz ++) {
         for(let vert = y - distance; vert <= y + distance; vert ++) {
             executionTool(horiz, vert, r, g, b);
         }
     }
-}
+} */
