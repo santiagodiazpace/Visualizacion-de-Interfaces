@@ -62,11 +62,7 @@ function adaptarCanvas(imagen){
 }
 
 
-
-
-
-
-// Formato de imagen valido
+// Auxiliares
 function imagenValida(image){
     let salida = false;
     let tipo = image['type'];
@@ -75,7 +71,6 @@ function imagenValida(image){
     }
     return salida;
 }
-
 
 function setPixel(imageData, x, y, r, g, b, a) {
     let index = (x + y * imageData.width) * 4;
@@ -125,7 +120,6 @@ document.querySelector("#btnNegativo").addEventListener("click", function() {
             let newGreen = 255 - getGreen(x, y);
             let newBlue = 255 - getBlue(x, y);
             setPixel(imageData, x, y, newRed, newGreen, newBlue, 255);
-            //executionTool(x, y, newRed, newGreen, newBlue);
         }
     }
     ctx.putImageData(imageData, 0, 0);
@@ -188,6 +182,58 @@ for(let x = 0; x < canvas.width - 1; x++) {
 ctx.putImageData(imageData, 0, 0);
 });
 
+
+// Filtro blur
+document.querySelector("#btnBlur").addEventListener("click", function() {
+
+    let kernel = [1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9];
+    let size = Math.sqrt(kernel.length);
+    let half = Math.floor(size / 2);
+    let width = canvas.width;
+    let height = canvas.height;
+    let inputData = ctx.getImageData(0, 0, width, height).data;
+    let outputData = imageData.data;
+    let pixelsAbove;
+    let weight;
+    let neighborY;
+    let neighborX;
+    let inputIndex;
+    let outputIndex;
+
+    for (let i = 0; i < height; ++i) {
+        pixelsAbove = i * width;
+        for (let j = 0; j < width; ++j) {
+            r = 0;
+            g = 0;
+            b = 0;
+
+            for (let kernelY = 0; kernelY < size; ++kernelY) {
+                for (let kernelX = 0; kernelX < size; ++kernelX) {
+                    weight = kernel[kernelY * size + kernelX];
+                    neighborY = Math.min(
+                        height - 1,
+                        Math.max(0, i + kernelY - half)
+                    );
+                    neighborX = Math.min(
+                        width - 1,
+                        Math.max(0, j + kernelX - half)
+                    );
+                    inputIndex = (neighborY * width + neighborX) * 4;
+                    r += inputData[inputIndex] * weight;
+                    g += inputData[inputIndex + 1] * weight;
+                    b += inputData[inputIndex + 2] * weight;
+                }
+            }
+            outputIndex = (pixelsAbove + j) * 4;
+            outputData[outputIndex] = r;
+            outputData[outputIndex + 1] = g;
+            outputData[outputIndex + 2] = b;
+        }
+    }
+    ctx.putImageData(imageData, 0, 0);
+});
+
+
 // Descargar
 function descargarImagen() {
     let download = document.querySelector("#btnDownload");
@@ -208,7 +254,7 @@ cleanCanvas.addEventListener("click", function() {
 });
 
 
-// Herramienta dibujar o borrar
+// Herramientas
 let tool = "dibujar";  // por defecto
 let toolController = document.querySelector(".herramienta").addEventListener("change", function() {
     let execution = document.getElementsByName("accion");
