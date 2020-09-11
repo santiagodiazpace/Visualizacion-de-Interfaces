@@ -5,10 +5,13 @@ let ctx = canvas.getContext("2d");
 let selectImage = document.querySelector("#myInput");
 let imageData = ctx.createImageData(canvas.width, canvas.height);
 
-
 let r = 0;
 let g = 0;
 let b = 0;
+
+let canvasOriginalW=canvas.width;
+let canvasOriginalH=canvas.height;
+let canvasData = ctx.createImageData(canvasOriginalW,canvasOriginalH);
 
 
 // Cargar imagen
@@ -24,17 +27,43 @@ selectImage.onchange = e => {
             image.src = content;
     
             image.onload = function () {
-                let imageAspectRatio = (1.0 * this.height) / this.width;
-                let imageScaledWidth = canvas.width;
-                let imageScaledHeight = canvas.width * imageAspectRatio;
-    
-                ctx.drawImage(this, 0, 0, imageScaledWidth, imageScaledHeight);
+                let arrWxH= adaptarCanvas(this)
+                let imageScaledWidth=arrWxH[0];
+                let imageScaledHeight=arrWxH[1];
+                // se dibuja imagen en canvas
+                canvasData = ctx.createImageData(imageScaledWidth , imageScaledHeight)
+                ctx.drawImage(image,0,0, imageScaledWidth, imageScaledHeight);
                 imageData = ctx.getImageData(0, 0, imageScaledWidth, imageScaledHeight);
-                ctx.putImageData(imageData, 0, 0);
             }
         }
     }
 }
+
+
+function adaptarCanvas(imagen){
+    let arrSalida=[];
+    let imageAspectRatio;
+    let imageScaledWidth;
+    let imageScaledHeight;
+    if( imagen.width > imagen.height){
+        imageAspectRatio = (1.0 * imagen.height) / imagen.width;
+        imageScaledWidth = canvasOriginalW;
+        imageScaledHeight = canvasOriginalH * imageAspectRatio;
+    }else{
+        imageAspectRatio =(1.0 * imagen.width) / imagen.height
+        imageScaledWidth=canvasOriginalW * imageAspectRatio 
+        imageScaledHeight=canvasOriginalH;                    
+    }
+    arrSalida.push(imageScaledWidth);
+    arrSalida.push(imageScaledHeight);
+    canvas.width=imageScaledWidth ;
+    canvas.height=imageScaledHeight;       
+    return arrSalida;
+}
+
+
+
+
 
 
 // Formato de imagen valido

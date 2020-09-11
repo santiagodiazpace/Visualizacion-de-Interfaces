@@ -41,4 +41,8 @@ footer {
     font-size: smaller;
     text-align: center;
     margin-top: 20px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    padding-top: 10px;
+    border-color: rgb(201, 194, 192);
 }
