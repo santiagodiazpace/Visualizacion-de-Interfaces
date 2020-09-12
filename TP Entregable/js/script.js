@@ -40,6 +40,8 @@ selectImage.onchange = e => {
 }
 
 
+//Auxiliares
+
 function adaptarCanvas(imagen){
     let arrSalida=[];
     let imageAspectRatio;
@@ -62,7 +64,6 @@ function adaptarCanvas(imagen){
 }
 
 
-// Auxiliares
 function imagenValida(image){
     let salida = false;
     let tipo = image['type'];
@@ -98,8 +99,8 @@ function getBlue(x, y) {
 
 //Filtro binarizacion
 document.querySelector("#btnBinario").addEventListener("click", function(){
-    let umbral = 50;
-    for(let x = 0; x < canvas.width - 1; x++) {
+    let umbral = 70;
+    for(let x = 0; x < canvas.width; x++) {
         for(let y = 0; y < canvas.height; y++) {
             let promedio = Math.floor((getRed(x, y) + getGreen(x, y) + getBlue(x, y))/3);
             if(promedio > umbral) {
@@ -114,7 +115,7 @@ document.querySelector("#btnBinario").addEventListener("click", function(){
 
 // Filtro Negativo
 document.querySelector("#btnNegativo").addEventListener("click", function() {
-    for(let x = 0; x < canvas.width - 1; x++) {
+    for(let x = 0; x < canvas.width; x++) {
         for(let y = 0; y < canvas.height; y++) {
             let newRed = 255 - getRed(x, y);
             let newGreen = 255 - getGreen(x, y);
@@ -127,7 +128,7 @@ document.querySelector("#btnNegativo").addEventListener("click", function() {
 
 // Filtro Sepia
 document.querySelector("#btnSepia").addEventListener("click", function() {
-    for(let x = 0; x < canvas.width - 1; x++) {
+    for(let x = 0; x < canvas.width; x++) {
         for(let y = 0; y < canvas.height; y++) {    
                 let promedio= Math.floor((getRed(x, y) + getGreen(x, y) + getBlue(x, y))/3);
                 let newRed = Math.min(promedio + 40, 255);
@@ -143,7 +144,7 @@ document.querySelector("#btnSepia").addEventListener("click", function() {
 document.querySelector("#btnSaturacion").addEventListener("click", function() {
     let contraste = 100; // Valor por defecto
     let factor = ( 259 * ( contraste + 255 ) ) / ( 255 * ( 259 - contraste ) );
-    for(let x = 0; x < canvas.width - 1; x++) {
+    for(let x = 0; x < canvas.width; x++) {
         for(let y = 0; y < canvas.height; y++) {
             let newRed = factor * ( getRed(x,y) - 128 ) + 128;
             let newGreen = factor * ( getGreen(x,y) - 128 ) + 128;
@@ -156,7 +157,7 @@ document.querySelector("#btnSaturacion").addEventListener("click", function() {
 
 // Filtro grises
 document.querySelector("#btnGrises").addEventListener("click", function() {
-    for(let x = 0; x < canvas.width - 1; x++) {
+    for(let x = 0; x < canvas.width; x++) {
         for(let y = 0; y < canvas.height; y++) {    
                 let gris = ((getRed(x,y) + getGreen(x,y) + getBlue(x,y)) / 3);
                 let newRed = gris;
@@ -171,7 +172,7 @@ document.querySelector("#btnGrises").addEventListener("click", function() {
 // Filtro brillo
 document.querySelector("#btnBrillo").addEventListener("click", function() {
 let factor = 75;  // valor por defecto
-for(let x = 0; x < canvas.width - 1; x++) {
+for(let x = 0; x < canvas.width; x++) {
     for(let y = 0; y < canvas.height; y++) {
         let newRed = Math.min(getRed(x, y) + factor, 255);
         let newGreen = Math.min(getGreen(x, y) + factor, 255);
@@ -180,6 +181,46 @@ for(let x = 0; x < canvas.width - 1; x++) {
     }
 }
 ctx.putImageData(imageData, 0, 0);
+});
+
+
+// Filtro Red
+document.querySelector("#btnRed").addEventListener("click", function() {
+    for(let x = 0; x < canvas.width; x++) {
+        for(let y = 0; y < canvas.height; y++) {
+            let red = getRed(x,y);
+            let newGreen = 0;
+            let newBlue = 0;
+            setPixel(imageData, x, y, red, newGreen, newBlue, 255);
+        }
+    }
+    ctx.putImageData(imageData, 0, 0);
+});
+
+// Filtro Green
+document.querySelector("#btnGreen").addEventListener("click", function() {
+    for(let x = 0; x < canvas.width; x++) {
+        for(let y = 0; y < canvas.height; y++) {
+            let newRed = 0;
+            let green = getGreen(x,y);
+            let newBlue = 0;
+            setPixel(imageData, x, y, newRed, green, newBlue, 255);
+        }
+    }
+    ctx.putImageData(imageData, 0, 0);
+});
+
+// Filtro Blue
+document.querySelector("#btnBlue").addEventListener("click", function() {
+    for(let x = 0; x < canvas.width; x++) {
+        for(let y = 0; y < canvas.height; y++) {
+            let newRed = 0;
+            let newGreen = 0;
+            let blue = getBlue(x,y);
+            setPixel(imageData, x, y, newRed, newGreen, blue, 255);
+        }
+    }
+    ctx.putImageData(imageData, 0, 0);
 });
 
 
