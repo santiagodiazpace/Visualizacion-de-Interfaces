@@ -4,11 +4,10 @@ let canvas = document.querySelector("#myCanvas");
 let ctx = canvas.getContext("2d");
 let selectImage = document.querySelector("#myInput");
 let imageData = ctx.createImageData(canvas.width, canvas.height);
-
+let imagenOriginal = [];
 let r = 0;
 let g = 0;
 let b = 0;
-
 let canvasOriginalW=canvas.width;
 let canvasOriginalH=canvas.height;
 let canvasData = ctx.createImageData(canvasOriginalW,canvasOriginalH);
@@ -34,6 +33,7 @@ selectImage.onchange = e => {
                 canvasData = ctx.createImageData(imageScaledWidth , imageScaledHeight)
                 ctx.drawImage(image,0,0, imageScaledWidth, imageScaledHeight);
                 imageData = ctx.getImageData(0, 0, imageScaledWidth, imageScaledHeight);
+                guardarImagenOriginal();
             }
         }
     }
@@ -41,6 +41,35 @@ selectImage.onchange = e => {
 
 
 //Auxiliares
+
+function guardarImagenOriginal() {
+    imagenOriginal = [];
+    for(let x = 0; x < canvas.width; x++) {
+        for(let y = 0; y < canvas.height; y++) {
+            imagenOriginal[imagenOriginal.length] = getRed(x, y);
+            imagenOriginal[imagenOriginal.length] = getGreen(x, y);
+            imagenOriginal[imagenOriginal.length] = getBlue(x, y);
+            imagenOriginal[imagenOriginal.length] = getAlpha(x, y);
+        }
+    }
+}
+
+function deshacerImagen() {
+    let pos = 0;
+    for(let x = 0; x < canvas.width; x++) {
+        for(let y = 0; y < canvas.height; y++) {
+            setPixel(imageData, x, y, imagenOriginal[pos], imagenOriginal[pos+1], imagenOriginal[pos+2], imagenOriginal[pos+3]);
+            pos += 4;
+        }
+    }
+    ctx.putImageData(imageData, 0, 0);
+}
+
+let resetImagen = document.querySelector("#btnDeshacer");
+resetImagen.addEventListener("click", function() {
+    deshacerImagen();
+});
+
 
 function adaptarCanvas(imagen){
     let arrSalida=[];
@@ -67,7 +96,7 @@ function adaptarCanvas(imagen){
 function imagenValida(image){
     let salida = false;
     let tipo = image['type'];
-    if(tipo == 'image/jpeg' || tipo == 'image/jpg' || tipo =='image/png') {
+    if(tipo == 'image/jpeg' || tipo == 'image/jpg' || tipo =='image/png' || tipo =='image/bmp') {
         salida = true;
     }
     return salida;
@@ -96,10 +125,14 @@ function getBlue(x, y) {
     return imageData.data[index + 2];
 }
 
+function getAlpha(x, y) {
+    let index = (x + y * imageData.width) * 4;
+    return imageData.data[index+3];
+}
 
 //Filtro binarizacion
 document.querySelector("#btnBinario").addEventListener("click", function(){
-    let umbral = 70;
+    let umbral = 50;
     for(let x = 0; x < canvas.width; x++) {
         for(let y = 0; y < canvas.height; y++) {
             let promedio = Math.floor((getRed(x, y) + getGreen(x, y) + getBlue(x, y))/3);
