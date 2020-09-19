@@ -31,7 +31,7 @@ canvas.addEventListener("click", event => {
     drawPieces();
 });
 
-//#region - Piece utilities
+//#region - Pieces
 function findClickedPiece(x,y) {
     for (let index = 0 ; index < arrayPieces.length; index ++) {
         let element = arrayPieces[index];
@@ -70,7 +70,6 @@ function onMouseDown(event) {
         clickedPiece.setHighligthed(true);
         lastClickedPiece = clickedPiece;
     }
-
     drawPieces();
 }
 
@@ -87,12 +86,15 @@ function onMouseUp(event) {
 
 //#endregion
 
+
 function clearCanvas() {
     context.fillStyle = "white";
     context.fillRect(0, 0, canvasWidth, canvasHeight);
+    drawImageTablero();
 }
 
 function initPlay() {
+    //drawImageBackground();
     for (let i = 1 ; i <= NUMPIECES; i++) {
         addPiece(BLUE);
         console.log("Ficha agregada azul");
@@ -102,12 +104,36 @@ function initPlay() {
     console.log("--> " + arrayPieces.length + " fichas creadas");
 
     drawPieces();
+    drawImageTablero();
 
     canvas.addEventListener("mousedown", onMouseDown,false);
     canvas.addEventListener("mouseup", onMouseUp,false);
     canvas.addEventListener("mousemove", onMouseMoved,false);
 }
 
+function drawImageBackground() {
+    let myImageB = new Image();
+    myImageB.src = "imagenes/background.png";
+
+    myImageB.onload = function () {
+        context.drawImage(myImageB, 0, 0, myImageB.width, myImageB.height);
+    }
+}
+
+/* function drawImageTablero() {
+    let myImage = new Image();
+    myImage.src = "imagenes/cell_tablero.png";
+
+    myImage.onload = function () {
+        let posX = (canvas.width - myImage.width) / 2;
+        let posY = (canvas.height - myImage.height) / 2;
+        context.drawImage(myImage, posX, posY, myImage.width, myImage.height);
+    }
+} */
+
+function drawImageTablero() {
+
+}
 
 
 initPlay();
