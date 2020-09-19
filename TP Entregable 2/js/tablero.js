@@ -48,19 +48,13 @@ function drawPieces() {
     }
 }
 
-function addPieceBlue() {
+function addPiece(color) {
     let posX = Math.round(Math.random() * canvasWidth);
     let posY = Math.round(Math.random() * canvasHeight);
-    let newPiece = new Ficha(posX, posY, SIZEPIECE, context, BLUE);
+    let newPiece = new Ficha(posX, posY, SIZEPIECE, context, color);
     arrayPieces.push(newPiece);
 }
 
-function addPieceRed() {
-    let posX = Math.round(Math.random() * canvasWidth);
-    let posY = Math.round(Math.random() * canvasHeight);
-    let newPiece = new Ficha(posX, posY, SIZEPIECE, context, RED);
-    arrayPieces.push(newPiece);
-}
 //#endregion
 
 //#region - Mouse events
@@ -100,14 +94,12 @@ function clearCanvas() {
 
 function initPlay() {
     for (let i = 1 ; i <= NUMPIECES; i++) {
-        addPieceBlue();
+        addPiece(BLUE);
         console.log("Ficha agregada azul");
-    }
-
-    for (let i = 1 ; i <= NUMPIECES; i++) {
-        addPieceRed();
+        addPiece(RED);
         console.log("Ficha agregada roja");
     }
+    console.log("--> " + arrayPieces.length + " fichas creadas");
 
     drawPieces();
 
