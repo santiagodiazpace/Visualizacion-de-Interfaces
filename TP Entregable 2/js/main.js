@@ -1,12 +1,16 @@
 "use strict";
 
+const NUMPIECES = 5;    // Para cada jugador
+const SIZEPIECE = 30;
+const RED = "#FF0000";  // Red
+const BLUE = "#0000FF";  // Blue
+
 let canvas = document.querySelector("#myCanvas");
 let context = canvas.getContext("2d");
 let canvasWidth = canvas.width;
 let canvasHeight = canvas.height;
 
 let arrayPieces = [];
-
 let lastClickedPiece = null;
 let isMouseDown = false;
 
@@ -39,15 +43,22 @@ function findClickedPiece(x,y) {
 
 function drawPieces() {
     clearCanvas();
-    for (let i = 0 ; i< arrayPieces.length; i ++) {
-        arrayPieces[i].draw(context);
+    for (let i = 0 ; i < arrayPieces.length; i++) {
+        arrayPieces[i].draw(arrayPieces[i].getColor());
     }
 }
 
-function addPiece() {
+function addPieceBlue() {
     let posX = Math.round(Math.random() * canvasWidth);
     let posY = Math.round(Math.random() * canvasHeight);
-    let newPiece = new Ficha(posX, posY, 30, context);
+    let newPiece = new Ficha(posX, posY, SIZEPIECE, context, BLUE);
+    arrayPieces.push(newPiece);
+}
+
+function addPieceRed() {
+    let posX = Math.round(Math.random() * canvasWidth);
+    let posY = Math.round(Math.random() * canvasHeight);
+    let newPiece = new Ficha(posX, posY, SIZEPIECE, context, RED);
     arrayPieces.push(newPiece);
 }
 //#endregion
@@ -88,9 +99,14 @@ function clearCanvas() {
 }
 
 function initPlay() {
-    for (let i = 0 ; i< 10; i ++) {
-        addPiece();
-        console.log("Ficha agregada");
+    for (let i = 1 ; i <= NUMPIECES; i++) {
+        addPieceBlue();
+        console.log("Ficha agregada azul");
+    }
+
+    for (let i = 1 ; i <= NUMPIECES; i++) {
+        addPieceRed();
+        console.log("Ficha agregada roja");
     }
 
     drawPieces();

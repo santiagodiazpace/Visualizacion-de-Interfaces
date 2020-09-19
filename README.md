@@ -1,2 +1,5 @@
 # Visualizacion-de-Interfaces
-TUDAI 2020
+
+Santiago Diaz Pace
+
+UNICEN - TUDAI 2020

@@ -1,18 +1,19 @@
 class Ficha {
 
-    constructor(posX, posY, radius, context) {
+    constructor(posX, posY, radius, context, color) {
         this.posX = posX;
         this.posY = posY;
         this.radius = radius;
         this.context = context;
         this.highligthed = false;
-        this.highligthedColor = "#000000"; // Negro
+        this.highligthedColor = "#000000"; // Black
+        this.color = color;
     }
 
-    draw() {
+    draw(color) {
         this.context.beginPath();
         this.context.arc(this.posX, this.posY, this.radius, 0, 2 * Math.PI);
-        this.context.fillStyle = "#FF0000"; 
+        this.context.fillStyle = color; 
         this.context.fill();
         
         if (this.highligthed === true) {
@@ -34,6 +35,10 @@ class Ficha {
 
     getPosY() {
         return this.posY;
+    }
+
+    getColor() {
+        return this.color;
     }
 
     setPosition(x, y) {
