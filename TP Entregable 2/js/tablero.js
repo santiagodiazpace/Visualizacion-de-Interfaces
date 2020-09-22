@@ -13,6 +13,7 @@ let canvasHeight = canvas.height;
 let arrayPieces = [];
 let lastClickedPiece = null;
 let isMouseDown = false;
+let imageBoard = new Image();
 
 
 canvas.addEventListener("click", event => {
@@ -90,7 +91,7 @@ function onMouseUp(event) {
 function clearCanvas() {
     context.fillStyle = "white";
     context.fillRect(0, 0, canvasWidth, canvasHeight);
-    drawImageTablero();
+    reloadImageBoard();
 }
 
 function initPlay() {
@@ -104,36 +105,38 @@ function initPlay() {
     console.log("--> " + arrayPieces.length + " fichas creadas");
 
     drawPieces();
-    drawImageTablero();
+    drawImageBoard();
 
     canvas.addEventListener("mousedown", onMouseDown,false);
     canvas.addEventListener("mouseup", onMouseUp,false);
     canvas.addEventListener("mousemove", onMouseMoved,false);
 }
 
-function drawImageBackground() {
+/* function drawImageBackground() {
     let myImageB = new Image();
     myImageB.src = "imagenes/background.png";
 
     myImageB.onload = function () {
         context.drawImage(myImageB, 0, 0, myImageB.width, myImageB.height);
     }
-}
-
-/* function drawImageTablero() {
-    let myImage = new Image();
-    myImage.src = "imagenes/cell_tablero.png";
-
-    myImage.onload = function () {
-        let posX = (canvas.width - myImage.width) / 2;
-        let posY = (canvas.height - myImage.height) / 2;
-        context.drawImage(myImage, posX, posY, myImage.width, myImage.height);
-    }
 } */
 
-function drawImageTablero() {
+function drawImageBoard() {
+    imageBoard.src = "imagenes/cell_tablero.png";
 
+    imageBoard.onload = function () {
+        let posX = (canvas.width - imageBoard.width) / 2;
+        let posY = (canvas.height - imageBoard.height) / 2;
+        context.drawImage(imageBoard, posX, posY, imageBoard.width, imageBoard.height);
+    }
 }
+
+function reloadImageBoard() {
+    let posX = (canvas.width - imageBoard.width) / 2;
+    let posY = (canvas.height - imageBoard.height) / 2;
+    context.drawImage(imageBoard, posX, posY, imageBoard.width, imageBoard.height);
+}
+
 
 
 initPlay();
