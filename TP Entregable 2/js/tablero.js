@@ -1,9 +1,9 @@
 "use strict";
 
-const NUMPIECES = 5;    // Para cada jugador
-const SIZEPIECE = 30;
-const RED = "#FF0000";  // Red
-const BLUE = "#0000FF";  // Blue
+const NUMPIECES = 21;     // Piezas para cada jugador
+const SIZEPIECE = 30;    // Tamaño de la ficha
+const RED = "#FF0000";   // Color ficha                   ????? pasar a Ficha
+const BLUE = "#0000FF";  // Color ficha
 
 let canvas = document.querySelector("#myCanvas");
 let context = canvas.getContext("2d");
@@ -49,12 +49,25 @@ function drawPieces() {
     }
 }
 
-function addPiece(color) {
+/* function addPiece(color) {
     let posX = Math.round(Math.random() * canvasWidth);
     let posY = Math.round(Math.random() * canvasHeight);
     let newPiece = new Ficha(posX, posY, SIZEPIECE, context, color);
     arrayPieces.push(newPiece);
 }
+ */
+function addPiece(color) {
+    let posX = 0;
+    if (color === RED) {
+        posX = 50;
+    } else {
+        posX = 950;
+    }
+    let posY = Math.round(Math.random() * canvasHeight);
+    let newPiece = new Ficha(posX, posY, SIZEPIECE, context, color);
+    arrayPieces.push(newPiece);
+}
+
 
 //#endregion
 
@@ -87,20 +100,12 @@ function onMouseUp(event) {
 
 //#endregion
 
-
-function clearCanvas() {
-    context.fillStyle = "white";
-    context.fillRect(0, 0, canvasWidth, canvasHeight);
-    reloadImageBoard();
-}
-
+//#region - Utilities
 function initPlay() {
-    //drawImageBackground();
+
     for (let i = 1 ; i <= NUMPIECES; i++) {
         addPiece(BLUE);
-        console.log("Ficha agregada azul");
         addPiece(RED);
-        console.log("Ficha agregada roja");
     }
     console.log("--> " + arrayPieces.length + " fichas creadas");
 
@@ -112,17 +117,14 @@ function initPlay() {
     canvas.addEventListener("mousemove", onMouseMoved,false);
 }
 
-/* function drawImageBackground() {
-    let myImageB = new Image();
-    myImageB.src = "imagenes/background.png";
-
-    myImageB.onload = function () {
-        context.drawImage(myImageB, 0, 0, myImageB.width, myImageB.height);
-    }
-} */
+function clearCanvas() {
+    context.fillStyle = "white";
+    context.fillRect(0, 0, canvasWidth, canvasHeight);
+    reloadImageBoard();
+}
 
 function drawImageBoard() {
-    imageBoard.src = "imagenes/cell_tablero.png";
+    imageBoard.src = "imagenes/tablero.png";
 
     imageBoard.onload = function () {
         let posX = (canvas.width - imageBoard.width) / 2;
@@ -136,7 +138,16 @@ function reloadImageBoard() {
     let posY = (canvas.height - imageBoard.height) / 2;
     context.drawImage(imageBoard, posX, posY, imageBoard.width, imageBoard.height);
 }
+//#endregion
 
+/* function drawImageBackground() {
+    let myImageB = new Image();
+    myImageB.src = "imagenes/background.png";
+
+    myImageB.onload = function () {
+        context.drawImage(myImageB, 0, 0, myImageB.width, myImageB.height);
+    }
+} */
 
 
 initPlay();

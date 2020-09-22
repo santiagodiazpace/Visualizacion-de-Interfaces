@@ -6,14 +6,17 @@ class Ficha {
         this.radius = radius;
         this.context = context;
         this.highligthed = false;
-        this.highligthedColor = "#000000"; // Black
+        this.highligthedColor = "orange"; 
         this.color = color;
     }
 
     draw(color) {
         this.context.beginPath();
         this.context.arc(this.posX, this.posY, this.radius, 0, 2 * Math.PI);
-        this.context.fillStyle = color; 
+        this.context.fillStyle = color;
+        this.context.strokeStyle = "#000000";  // Black
+        this.context.lineWidth = 1;
+        this.context.stroke();
         this.context.fill();
         
         if (this.highligthed === true) {
