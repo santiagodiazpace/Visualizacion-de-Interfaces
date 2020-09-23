@@ -173,8 +173,8 @@ document.querySelector("#btnSepia").addEventListener("click", function() {
     ctx.putImageData(imageData, 0, 0);
 });
 
-// Filtro saturacion
-document.querySelector("#btnSaturacion").addEventListener("click", function() {
+// Filtro saturacion --> ERRONEO !!!
+/* document.querySelector("#btnSaturacion").addEventListener("click", function() {
     let contraste = 100; // Valor por defecto
     let factor = ( 259 * ( contraste + 255 ) ) / ( 255 * ( 259 - contraste ) );
     for(let x = 0; x < canvas.width; x++) {
@@ -186,7 +186,122 @@ document.querySelector("#btnSaturacion").addEventListener("click", function() {
         }
     }
     ctx.putImageData(imageData, 0, 0);
+}); */
+
+
+// Filtro saturacion
+document.querySelector("#btnSaturacion").addEventListener("click", function() {
+    for (let x = 0; x < canvas.width; x++) {
+        for(let y = 0; y < canvas.height; y++) {
+        let r = getRed(x,y);  
+        let g = getGreen(x,y);
+        let b = getBlue(x,y);
+
+        let colorHSV= convertirRGBaHSV (r,g,b);                   // Convierte color a formato HSV
+        colorHSV[1] *= 2.5;                                       // S: saturacion * factor
+        let colorRGB = convertirHSVaRGB(colorHSV);                // Convierte color a formato RGB
+
+        setPixel(imageData, x, y ,colorRGB[0], colorRGB[1], colorRGB[2], 255);
+    }}
+    ctx.putImageData(imageData,0,0);
 });
+
+function convertirRGBaHSV(r, g, b) {
+
+    let min = Math.min( r, g, b );
+    let max = Math.max( r, g, b );
+    let h = 0;
+    let s = 0;
+    let v = max;
+    let delta = max - min;
+    let resultado = [];
+
+    if ( max != 0 )
+        s = delta / max;        // s
+    else {
+        s = 0;
+        h = -1;
+        return [h, s, undefined];
+    }
+    if( r === max )
+        h = (( g - b ) / delta);      // between yellow & magenta
+    else if( g === max )
+        h = (2 + ( b - r ) / delta);  // between cyan & yellow
+    else
+        h = (4 + ( r - g ) / delta);  // between magenta & cyan
+    h *= 60;                // degrees
+    if( h < 0 )
+        h += 360;
+    if ( isNaN(h) )  // no es un  numero
+        h = 0;
+    
+    resultado[0] = h;
+    resultado[1] = s;
+    resultado[2] = v;
+
+    return resultado;
+};
+
+function convertirHSVaRGB(colorHSV) {
+
+    let r, g, b;
+    let h= colorHSV[0];
+    let s= colorHSV[1];
+    let v= colorHSV[2];
+    let resultado = [];
+
+    if(s === 0 ) {          // gris
+        r = v;
+        g = v;
+        b = v;
+    } else {                // color
+        h /= 60;               
+        let o = Math.floor( h );
+        let f = h - o;         
+        let p = v * ( 1 - s );
+        let q = v * ( 1 - s * f );
+        let t = v * ( 1 - s * ( 1 - f ) );
+        
+        switch( o ) {
+            case 0:
+                r = v;
+                g = t;
+                b = p;
+                break;
+            case 1:
+                r = q;
+                g = v;
+                b = p;
+                break;
+            case 2:
+                r = p;
+                g = v;
+                b = t;
+                break;
+            case 3:
+                r = p;
+                g = q;
+                b = v;
+                break;
+            case 4:
+                r = t;
+                g = p;
+                b = v;
+                break;
+            case 5:        
+                r = v;
+                g = p;
+                b = q;
+                break;
+        }
+    }
+    resultado[0] = r;
+    resultado[1] = g;
+    resultado[2] = b;
+    return resultado;
+}
+
+
 
 // Filtro grises
 document.querySelector("#btnGrises").addEventListener("click", function() {

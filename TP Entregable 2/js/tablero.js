@@ -49,13 +49,6 @@ function drawPieces() {
     }
 }
 
-/* function addPiece(color) {
-    let posX = Math.round(Math.random() * canvasWidth);
-    let posY = Math.round(Math.random() * canvasHeight);
-    let newPiece = new Ficha(posX, posY, SIZEPIECE, context, color);
-    arrayPieces.push(newPiece);
-}
- */
 function addPiece(color) {
     let posX = 0;
     if (color === RED) {
@@ -64,6 +57,12 @@ function addPiece(color) {
         posX = 950;
     }
     let posY = Math.round(Math.random() * canvasHeight);
+    if ((posY + SIZEPIECE) > canvas.height) {
+        posY -= SIZEPIECE * 2;
+    }
+    if ((posY - SIZEPIECE) < 0) {
+        posY += SIZEPIECE * 2;
+    }
     let newPiece = new Ficha(posX, posY, SIZEPIECE, context, color);
     arrayPieces.push(newPiece);
 }
