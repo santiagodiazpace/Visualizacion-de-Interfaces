@@ -14,6 +14,7 @@ let canvasData = ctx.createImageData(canvasOriginalW,canvasOriginalH);
 
 
 // Cargar imagen
+
 selectImage.onchange = e => {
     let file = e.target.files[0];
     if(imagenValida(file)) {
@@ -37,10 +38,11 @@ selectImage.onchange = e => {
             }
         }
     }
-}
+} 
 
 
-//Auxiliares
+
+//#region - Auxiliares
 
 function guardarImagenOriginal() {
     imagenOriginal = [];
@@ -130,6 +132,29 @@ function getAlpha(x, y) {
     return imageData.data[index+3];
 }
 
+// Descargar
+function descargarImagen() {
+    let download = document.querySelector("#btnDownload");
+    let image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    download.setAttribute("href", image);
+}
+
+
+// Limpiar lienzo
+let cleanCanvas = document.querySelector("#btnLimpiar");
+cleanCanvas.addEventListener("click", function() {
+    for(let x = 0; x < canvas.width; x++) {
+        for(let y = 0; y < canvas.height; y++) {
+            ejecutar(x, y, 255, 255, 255);
+        }
+    }
+    ctx.putImageData(imageData, 0, 0);
+});
+
+//#endregion
+
+//#region - Filtros
+
 //Filtro binarizacion
 document.querySelector("#btnBinario").addEventListener("click", function(){
     let umbral = 50;
@@ -144,7 +169,7 @@ document.querySelector("#btnBinario").addEventListener("click", function(){
         }
     }
     ctx.putImageData(imageData,0,0);
-})
+});
 
 // Filtro Negativo
 document.querySelector("#btnNegativo").addEventListener("click", function() {
@@ -422,26 +447,9 @@ document.querySelector("#btnBlur").addEventListener("click", function() {
     ctx.putImageData(imageData, 0, 0);
 });
 
+//#endregion
 
-// Descargar
-function descargarImagen() {
-    let download = document.querySelector("#btnDownload");
-    let image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-    download.setAttribute("href", image);
-}
-
-
-// Limpiar lienzo
-let cleanCanvas = document.querySelector("#btnLimpiar");
-cleanCanvas.addEventListener("click", function() {
-    for(let x = 0; x < canvas.width; x++) {
-        for(let y = 0; y < canvas.height; y++) {
-            ejecutar(x, y, 255, 255, 255);
-        }
-    }
-    ctx.putImageData(imageData, 0, 0);
-});
-
+//#region - Dibujar & Borrar
 
 // Herramientas
 let tool = "dibujar";  // por defecto
@@ -518,3 +526,5 @@ function ejecutar(x, y, r, g, b) {
         setPixel(imageData, x, y, r, g, b, 255);
     }
 }
+
+//#endregion
