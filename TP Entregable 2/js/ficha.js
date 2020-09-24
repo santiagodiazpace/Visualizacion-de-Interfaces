@@ -10,10 +10,10 @@ class Ficha {
         this.color = color;
     }
 
-    draw(color) {
+    draw() {
         this.context.beginPath();
         this.context.arc(this.posX, this.posY, this.radius, 0, 2 * Math.PI);
-        this.context.fillStyle = color;
+        this.context.fillStyle = this.getColor();
         this.context.strokeStyle = "#000000";  // Black
         this.context.lineWidth = 1;
         this.context.stroke();
@@ -58,4 +58,5 @@ class Ficha {
         let _y = this.posY - y;
         return Math.sqrt(_x * _x + _y * _y) < this.radius;
     }
+
 }
