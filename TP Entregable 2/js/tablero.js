@@ -1,15 +1,17 @@
 class Tablero {
 
     constructor() {
-        this.piecesOnBoard = [];  // Fichas ya colocadas en tablero amarillo
+        this.piecesOnBoard = [];  // Fichas colocadas en tablero amarillo
     }
 
     printArray() {
+        console.log("Arreglo:");
         for (let i=0; i<this.piecesOnBoard.length; i++) {
             console.log(this.piecesOnBoard[i].getPiece());
             console.log(this.piecesOnBoard[i].getPosX());
             console.log(this.piecesOnBoard[i].getPosY());
         }
+        console.log("Tamaño: " + this.piecesOnBoard.length);
     }
 
     findPiece(p) {
@@ -28,15 +30,51 @@ class Tablero {
         this.piecesOnBoard.push(newPiece);
     }
 
-    isFreePosition(x, y) {   // ver ????
+
+    existPlaceInColumn(y) {   
         let resultado = true;
-        for (let i=0; i < this.piecesOnBoard.length; i++) {
-            if ((this.piecesOnBoard[i].getPosX() === x) && (this.piecesOnBoard[i].getPosY() === y)) {
+        let i = 0;
+        while (i < this.piecesOnBoard.length) {
+            if (this.piecesOnBoard[i].getPosY() === y) {
                 resultado = false;
             }
+            i++;
+        }
+        console.log(resultado);
+        return resultado;
+    }
+
+    isFreePosition(x, y) {
+        let resultado = true;
+        let i = 0;
+        while (i < this.piecesOnBoard.length) {
+            if ((this.piecesOnBoard[i].getPosY() === x) && (this.piecesOnBoard[i].getPosY() === y)) {
+                resultado = false;
+            }
+            i++;
         }
         console.log(resultado);
         return resultado;
     }
     
+    locatePiece(column) {
+        let rowPos = null;
+        let row = 6;
+        while (row >= 1) {
+            if (this.isFreePosition(row, column)) {
+                rowPos = row;
+            }
+            row--;
+        }
+        rowPos = this.getFreeRow(row);
+        console.log("Posicion libre -> " + rowPos);
+        return rowPos;
+    }
+
+    getFreeRow(row) {
+        if (row != null) {
+            return 615;
+        }
+    }
+
 }

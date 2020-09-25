@@ -104,11 +104,11 @@ function onMouseUp(event) {
     let posY = event.layerY;
     //console.log("Coordenadas: " + posX + " , " + posY);
     clickedColumn = findColumn(posX, posY);
-    if ((lastClickedPiece != null) && (clickedColumn != null) && (newBoard.isFreePosition(posX, posY))) {
-        lastClickedPiece.setPosition(findColumn(posX, posY), locatePiece());
-        newBoard.addPiece(lastClickedPiece.getColor(), lastClickedPiece.getPosX(), lastClickedPiece.getPosY());
-        // Ubicar la ficha en celda ???
-        // newBoard.printArray();
+    if ((lastClickedPiece != null) && (clickedColumn != null) && (newBoard.existPlaceInColumn(clickedColumn))) {
+        lastClickedPiece.setPosition(clickedColumn, newBoard.locatePiece(clickedColumn));                                           // Ubicar la ficha en celda ???
+        newBoard.addPiece(lastClickedPiece.getColor(), newBoard.locatePiece(clickedColumn), clickedColumn);   //  Ver pos X en la columna  ???
+
+        //newBoard.printArray();
     }
 }
 
@@ -203,10 +203,7 @@ function findColumn(x, y) {
     return column;
 }
 
-function locatePiece() {
-    return 600;
-}
-
 
 
 initPlay();
+
