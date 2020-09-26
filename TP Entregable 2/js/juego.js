@@ -1,7 +1,7 @@
 "use strict";
 
 const NUMPIECES = 21;    // Piezas para cada jugador
-const SIZEPIECE = 30;    // Tamaño de la ficha
+const SIZEPIECE = 32;    // Tamaño de la ficha
 const RED = "#FF0000";   // Color ficha                  
 const BLUE = "#0000FF";  // Color ficha
 
@@ -104,11 +104,13 @@ function onMouseUp(event) {
     let posY = event.layerY;
     //console.log("Coordenadas: " + posX + " , " + posY);
     clickedColumn = findColumn(posX, posY);
-    if ((lastClickedPiece != null) && (clickedColumn != null) && (newBoard.existPlaceInColumn(clickedColumn))) {
-        lastClickedPiece.setPosition(clickedColumn, newBoard.locatePiece(clickedColumn));                                           // Ubicar la ficha en celda ???
-        newBoard.addPiece(lastClickedPiece.getColor(), newBoard.locatePiece(clickedColumn), clickedColumn);   //  Ver pos X en la columna  ???
-
-        //newBoard.printArray();
+    if ((lastClickedPiece != null) && (clickedColumn != null) /* && (newBoard.existPlaceInColumn(posX, clickedColumn)) */) {
+        let freeRow = newBoard.locatePiece(clickedColumn);
+        if (freeRow != null) {
+            lastClickedPiece.setPosition(clickedColumn, freeRow);                                      
+            newBoard.addPiece(lastClickedPiece.getColor(), freeRow, clickedColumn);   
+        }
+        newBoard.printArray();
     }
 }
 
@@ -178,25 +180,25 @@ function findColumn(x, y) {
     let column = null;
     if ((y >= 30) && (y < 120)) {
         if ((x >= 187) && (x < 276)) {  // Columna 1
-            column = 232;
+            column = 238;
         }
         if ((x >= 276) && (x < 365)) {  // Columna 2
-            column = 321;
+            column = 326;
         }
         if ((x >= 365) && (x < 454)) {  // Columna 3
-            column = 410;
+            column = 413;
         }
         if ((x >= 454) && (x < 543)) {  // Columna 4
-            column = 499;
+            column = 500;
         }
         if ((x >= 543) && (x < 632)) {  // Columna 5
-            column = 588;
+            column = 587;
         }
         if ((x >= 632) && (x < 721)) {  // Columna 6
-            column = 677;
+            column = 675;
         }
         if ((x >= 721) && (x <810)) {  // Columna 7
-            column = 766;
+            column = 762;
         }
     }
     console.log("Columna: " + column);
