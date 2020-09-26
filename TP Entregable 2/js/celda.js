@@ -1,13 +1,19 @@
 class Celda {
 
     constructor(p, x, y) {
-        this.piece = p;
+        this.color = p;
         this.posX = x;
         this.posY = y;
     }
 
-    getPiece() {
-        return this.piece;
+    getColor() {
+        let c;
+        if (this.color === "#FF0000") {
+            c = "Roja";
+        } else {
+            c = "Azul";
+        }
+        return c;
     }
 
     setPiece(color) {

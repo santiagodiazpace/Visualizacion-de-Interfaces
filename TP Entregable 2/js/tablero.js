@@ -11,7 +11,7 @@ class Tablero {
     printArray() {
         console.log("Arreglo:");
         for (let i=0; i<this.piecesOnBoard.length; i++) {
-            console.log("  Ficha: " + this.piecesOnBoard[i].getPiece() + " PosX: " + this.piecesOnBoard[i].getPosX() + " PosY: " + this.piecesOnBoard[i].getPosY());
+            console.log("  Ficha: " + this.piecesOnBoard[i].getColor() + ", PosFila: " + this.piecesOnBoard[i].getPosX() + " en Y - PosColumna: " + this.piecesOnBoard[i].getPosY() + " en X");
         }
         console.log("Tamaño: " + this.piecesOnBoard.length);
     }
@@ -64,22 +64,22 @@ class Tablero {
         if (row != null) {
             switch (row) {
                 case 1:
-                    posInRow = 186;  // Fila 1
+                    posInRow = 188;  // Fila 1
                     break;
                 case 2:
-                    posInRow = 271;  // Fila 2
+                    posInRow = 273;  // Fila 2
                      break;
                 case 3:
-                    posInRow = 357;  // Fila 3
+                    posInRow = 359;  // Fila 3
                     break;
                 case 4:
-                    posInRow = 444;  // Fila 4
+                    posInRow = 443;  // Fila 4
                     break;
                 case 5:
                     posInRow = 528;  // Fila 5
                     break;
                 case 6:
-                    posInRow = 615;  // Fila 6
+                    posInRow = 613;  // Fila 6
                     break;
                 default:
                     posInRow = null; 
@@ -89,7 +89,36 @@ class Tablero {
         return posInRow;
     }
 
+    findColumn(x, y) {
+        let column = null;
+        if ((y >= 30) && (y < 120)) {
+            if ((x >= 187) && (x < 276)) {  // Columna 1
+                column = 239;
+            }
+            if ((x >= 276) && (x < 365)) {  // Columna 2
+                column = 326;
+            }
+            if ((x >= 365) && (x < 454)) {  // Columna 3
+                column = 413;
+            }
+            if ((x >= 454) && (x < 543)) {  // Columna 4
+                column = 500;
+            }
+            if ((x >= 543) && (x < 632)) {  // Columna 5
+                column = 587;
+            }
+            if ((x >= 632) && (x < 721)) {  // Columna 6
+                column = 674;
+            }
+            if ((x >= 721) && (x <810)) {  // Columna 7
+                column = 761;
+            }
+        }
+        //console.log("Columna: " + column);
+        return column;
+    }
 
+    
     checkGame() {
         return false;
     }

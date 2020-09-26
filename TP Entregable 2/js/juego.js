@@ -1,7 +1,7 @@
 "use strict";
 
 const NUMPIECES = 21;    // Piezas para cada jugador
-const SIZEPIECE = 32;    // Tamaño de la ficha
+const SIZEPIECE = 33;    // Tamaño de la ficha
 const RED = "#FF0000";   // Color ficha                  
 const BLUE = "#0000FF";  // Color ficha
 
@@ -106,7 +106,7 @@ function onMouseUp(event) {
     let posX = event.layerX;
     let posY = event.layerY;
     //console.log("Coordenadas: " + posX + " , " + posY);
-    clickedColumn = findColumn(posX, posY);
+    clickedColumn = newBoard.findColumn(posX, posY);
     if (((lastClickedPiece != null) && (clickedColumn != null)) && (clickedPiece.getColor() != playerTurn)){
         let freeRow = newBoard.locatePiece(clickedColumn);
         if (freeRow != null) {
@@ -114,7 +114,7 @@ function onMouseUp(event) {
             lastClickedPiece.setPosition(clickedColumn, freeRow);                                      
             newBoard.addPiece(lastClickedPiece.getColor(), freeRow, clickedColumn);
 
-            isWinner = newBoard.checkGame();
+            isWinner = newBoard.checkGame(clickedPiece);
 
             playerTurn = lastClickedPiece.getColor();
         }
@@ -183,7 +183,7 @@ function reloadImageTopBoard() {
     context.drawImage(imageTopBoard, posX, posY);
 }
 
-function findColumn(x, y) {
+/* function findColumn(x, y) {
     let column = null;
     if ((y >= 30) && (y < 120)) {
         if ((x >= 187) && (x < 276)) {  // Columna 1
@@ -210,11 +210,7 @@ function findColumn(x, y) {
     }
     //console.log("Columna: " + column);
     return column;
-}
-
-//#endregion
-
-initPlay();
+} */
 
 function resetGame() {
     clearCanvas();
@@ -237,5 +233,11 @@ function resetGame() {
 
 let btn_Reset = document.querySelector("#btnReset");
 btn_Reset.addEventListener("click",  resetGame);
+
+
+//#endregion
+
+initPlay();
+
 
 
