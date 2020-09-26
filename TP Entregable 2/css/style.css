@@ -1,3 +1,19 @@
 #myCanvas {
     border: 1px solid #000000;
 }
+
+.contenedor {
+    display: flex;
+    flex-direction: row;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+aside {
+    margin-top: 50px;
+    margin-left: 30px;
+}
+
+button {
+    margin-top: 20px;
+    font-size: 20px;
+}

@@ -14,6 +14,9 @@ let arrayPieces = [];
 let lastClickedPiece = null;
 let isMouseDown = false;
 let clickedColumn = null;
+let clickedPiece = null;
+let isWinner = false;
+let playerTurn = null;
 
 let imageBoard = new Image();
 let imageTopBoard = new Image();
@@ -83,7 +86,7 @@ function onMouseDown(event) {
         lastClickedPiece = null;
     }
 
-    let clickedPiece = findClickedPiece(event.layerX, event.layerY);
+    clickedPiece = findClickedPiece(event.layerX, event.layerY);
     if (clickedPiece != null) {
         clickedPiece.setHighligthed(true);
         lastClickedPiece = clickedPiece;
@@ -104,13 +107,19 @@ function onMouseUp(event) {
     let posY = event.layerY;
     //console.log("Coordenadas: " + posX + " , " + posY);
     clickedColumn = findColumn(posX, posY);
-    if ((lastClickedPiece != null) && (clickedColumn != null) /* && (newBoard.existPlaceInColumn(posX, clickedColumn)) */) {
+    if (((lastClickedPiece != null) && (clickedColumn != null)) && (clickedPiece.getColor() != playerTurn)){
         let freeRow = newBoard.locatePiece(clickedColumn);
         if (freeRow != null) {
+
             lastClickedPiece.setPosition(clickedColumn, freeRow);                                      
-            newBoard.addPiece(lastClickedPiece.getColor(), freeRow, clickedColumn);   
+            newBoard.addPiece(lastClickedPiece.getColor(), freeRow, clickedColumn);
+
+            isWinner = newBoard.checkGame();
+
+            playerTurn = lastClickedPiece.getColor();
         }
-        newBoard.printArray();
+
+    newBoard.printArray();
     }
 }
 
@@ -174,8 +183,6 @@ function reloadImageTopBoard() {
     context.drawImage(imageTopBoard, posX, posY);
 }
 
-//#endregion
-
 function findColumn(x, y) {
     let column = null;
     if ((y >= 30) && (y < 120)) {
@@ -201,11 +208,34 @@ function findColumn(x, y) {
             column = 762;
         }
     }
-    console.log("Columna: " + column);
+    //console.log("Columna: " + column);
     return column;
 }
 
-
+//#endregion
 
 initPlay();
+
+function resetGame() {
+    clearCanvas();
+    arrayPieces = [];
+    newBoard.clear();
+    for (let i = 1 ; i <= NUMPIECES; i++) {
+        addPiece(BLUE);
+        addPiece(RED);
+    }
+    console.log("--> " + arrayPieces.length + " fichas creadas");
+
+    drawPieces();
+    drawImageBoard();
+    drawImageTopBoard();
+
+    canvas.addEventListener("mousedown", onMouseDown,false);
+    canvas.addEventListener("mouseup", onMouseUp,false);
+    canvas.addEventListener("mousemove", onMouseMoved,false);
+}
+
+let btn_Reset = document.querySelector("#btnReset");
+btn_Reset.addEventListener("click",  resetGame);
+
 

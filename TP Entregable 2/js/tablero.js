@@ -4,12 +4,14 @@ class Tablero {
         this.piecesOnBoard = [];  // Fichas colocadas en tablero amarillo
     }
 
+    clear() {
+        this.piecesOnBoard = [];
+    }
+
     printArray() {
         console.log("Arreglo:");
         for (let i=0; i<this.piecesOnBoard.length; i++) {
-            console.log(this.piecesOnBoard[i].getPiece());
-            console.log(this.piecesOnBoard[i].getPosX());
-            console.log(this.piecesOnBoard[i].getPosY());
+            console.log("  Ficha: " + this.piecesOnBoard[i].getPiece() + " PosX: " + this.piecesOnBoard[i].getPosX() + " PosY: " + this.piecesOnBoard[i].getPosY());
         }
         console.log("Tamaño: " + this.piecesOnBoard.length);
     }
@@ -21,7 +23,7 @@ class Tablero {
                 resultado = true;
             }
         }
-        console.log(resultado);
+        //console.log(resultado);
         return resultado;
     }
 
@@ -40,7 +42,7 @@ class Tablero {
             }
             row--;
         }
-        console.log("Posicion libre -> " + rowPos);
+        //console.log("Posicion libre -> " + rowPos);
         return rowPos;
     }
     
@@ -53,7 +55,7 @@ class Tablero {
             }
             i++;
         }
-        console.log(resultado);
+        //console.log(resultado);
         return resultado;
     }
 
@@ -84,9 +86,11 @@ class Tablero {
                     break;
               }
         }
-        console.log("posicion case: " + posInRow);
         return posInRow;
     }
 
 
+    checkGame() {
+        return false;
+    }
 }
