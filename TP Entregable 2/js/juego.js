@@ -114,7 +114,7 @@ function onMouseUp(event) {
             lastClickedPiece.setPosition(clickedColumn, freeRow);                                      
             newBoard.addPiece(lastClickedPiece.getColor(), freeRow, clickedColumn);
 
-            isWinner = newBoard.checkGame(clickedPiece);
+            isWinner = newBoard.checkGame(lastClickedPiece);
 
             playerTurn = lastClickedPiece.getColor();
         }

@@ -11,7 +11,7 @@ class Tablero {
     printArray() {
         console.log("Arreglo:");
         for (let i=0; i<this.piecesOnBoard.length; i++) {
-            console.log("  Ficha: " + this.piecesOnBoard[i].getColor() + ", PosFila: " + this.piecesOnBoard[i].getPosX() + " en Y - PosColumna: " + this.piecesOnBoard[i].getPosY() + " en X");
+            console.log("  Ficha: " + this.piecesOnBoard[i].getColor() + ", PosFila: " + this.piecesOnBoard[i].getPosRow() + " en Y - PosColumna: " + this.piecesOnBoard[i].getPosColumn() + " en X");
         }
         console.log("Tamaño: " + this.piecesOnBoard.length);
     }
@@ -50,7 +50,7 @@ class Tablero {
         let resultado = true;
         let i= 0;
         while (i < this.piecesOnBoard.length) {
-            if ((this.piecesOnBoard[i].getPosX() === x) && (this.piecesOnBoard[i].getPosY() === y)) {
+            if ((this.piecesOnBoard[i].getPosRow() === x) && (this.piecesOnBoard[i].getPosColumn() === y)) {
                 resultado = false;
             }
             i++;
@@ -59,7 +59,7 @@ class Tablero {
         return resultado;
     }
 
-    getFreeRow(row) {
+    getFreeRow(row) {  // cambia fila cada 85 px
         let posInRow;
         if (row != null) {
             switch (row) {
@@ -89,7 +89,7 @@ class Tablero {
         return posInRow;
     }
 
-    findColumn(x, y) {
+    findColumn(x, y) {    // Cambia columna cada 87 px
         let column = null;
         if ((y >= 30) && (y < 120)) {
             if ((x >= 187) && (x < 276)) {  // Columna 1
@@ -110,7 +110,7 @@ class Tablero {
             if ((x >= 632) && (x < 721)) {  // Columna 6
                 column = 674;
             }
-            if ((x >= 721) && (x <810)) {  // Columna 7
+            if ((x >= 721) && (x <810)) {   // Columna 7
                 column = 761;
             }
         }
@@ -119,7 +119,22 @@ class Tablero {
     }
 
     
-    checkGame() {
+    checkGame(piece) {         // posRow, posColumn, color
+        let deltaColumn = 87;
+        let deltaRow = 85;
+        let resultado = false
+
         return false;
     }
+
+    nextPositionRight(pos) {
+        let deltaColumn = 87;
+        return (pos + deltaColumn);
+    }
+
+    nextPositionLeft(pos) {
+        let deltaColumn = 87;
+        return (pos - deltaColumn);
+    }
+
 }
