@@ -1,7 +1,7 @@
 class Tablero {
 
     constructor() {
-        this.piecesOnBoard = [];  // Fichas colocadas en tablero amarillo
+        this.piecesOnBoard = [];  // Fichas colocadas en tablero amarillo, arreglo de Celda.
     }
 
     clear() {
@@ -9,17 +9,17 @@ class Tablero {
     }
 
     printArray() {
-        console.log("Arreglo:");
+        console.log("----> Arreglo:");
         for (let i=0; i<this.piecesOnBoard.length; i++) {
-            console.log("  Ficha: " + this.piecesOnBoard[i].getColor() + ", PosFila: " + this.piecesOnBoard[i].getPosRow() + " en Y - PosColumna: " + this.piecesOnBoard[i].getPosColumn() + " en X");
+            console.log("  Ficha: " + this.piecesOnBoard[i].getColor() + ", posRow: " + this.piecesOnBoard[i].getPosRow() + " en Y - PosColumm: " + this.piecesOnBoard[i].getPosColumn() + " en X");
         }
-        console.log("Tamaño: " + this.piecesOnBoard.length);
+        console.log(" Tamaño: " + this.piecesOnBoard.length);
     }
 
-    findPiece(p) {
+    findCell(r, c, color) {
         let resultado = false;
         for (let i=0; i < this.piecesOnBoard.length; i++) {
-            if (this.piecesOnBoard[i].getPiece() === p) {
+            if ((this.piecesOnBoard[i].getPosRow() === r) && (this.piecesOnBoard[i].getPosColumn() === c) && (this.piecesOnBoard[i].getColor() === color)){
                 resultado = true;
             }
         }
@@ -28,7 +28,7 @@ class Tablero {
     }
 
     addPiece(p, x, y) {
-        let newPiece = new Celda(p, x, y);
+        let newPiece = new Celda(p, x, y);  // (color, row, column)
         this.piecesOnBoard.push(newPiece);
     }
 
@@ -118,23 +118,65 @@ class Tablero {
         return column;
     }
 
-    
-    checkGame(piece) {         // posRow, posColumn, color
-        let deltaColumn = 87;
-        let deltaRow = 85;
-        let resultado = false
 
+    nextPositionRight(posColumn) {
+        let deltaColumn = 87;
+        return (posColumn + deltaColumn);
+    }
+
+    nextPositionLeft(posColumn) {
+        let deltaColumn = 87;
+        return (posColumn - deltaColumn);
+    }
+
+    checkHorizontal(cell, color) {
+
+        // Derecha
+        let piecesFoundRigth = 0;
+        let auxCellRigth = cell;
+        let nextRigthCell = new Celda(auxCellRigth.getColor(), auxCellRigth.getPosRow(), this.nextPositionRight(auxCellRigth.getPosColumn()));
+        for (let i = 1; i <= 3; i++) {
+            let c1 = nextRigthCell.getColor();
+            let c2 = auxCellRigth.getColor();
+            //console.log("Buscando color:" + nextRigthCell.getColor());
+            if (this.findCell(nextRigthCell.getPosRow(), nextRigthCell.getPosColumn(), color) && (c1 === c2)) {
+                //console.log(this.findCell(nextRigthCell.getPosRow(), nextRigthCell.getPosColumn()));
+                piecesFoundRigth ++;
+                auxCellRigth.setPosColumn(nextRigthCell);
+                nextRigthCell.setPosColumn(this.nextPositionRight(nextRigthCell.getPosColumn()));
+            }
+        }
+
+        // Izquierda
+        let piecesFoundLeft = 0;
+        let auxCellLeft = cell;
+        let nextLeftCell = new Celda(auxCellLeft.getColor(), auxCellLeft.getPosRow(), this.nextPositionLeft(auxCellLeft.getPosColumn()));
+        for (let j = 1; j <= 3; j++) {
+            let c3 = nextLeftCell.getColor();
+            let c4 = auxCellLeft.getColor();
+            //console.log("Buscando color:" + nextLeftCell.getColor());
+            if (this.findCell(nextLeftCell.getPosRow(), nextLeftCell.getPosColumn(), color) && (c3 === c4)) {
+                //console.log(this.findCell(nextLeftCell.getPosRow(), nextLeftCell.getPosColumn()));
+                piecesFoundLeft ++;
+                auxCellLeft.setPosColumn(nextLeftCell);
+                nextLeftCell.setPosColumn(this.nextPositionLeft(nextLeftCell.getPosColumn()));
+            } 
+        }
+
+        let total = piecesFoundLeft + piecesFoundRigth + 1;
+        console.log("Encontradas: " + total + " ----> " + piecesFoundLeft + " + " + piecesFoundRigth);
+        return total;  // retornar true o false
+    }
+
+    checkGame() {
+        let isWinnerHere = false;
+
+        let ultimoAgregadoArray = this.piecesOnBoard[this.piecesOnBoard.length - 1];
+        let cell = new Celda(ultimoAgregadoArray.getColor(), ultimoAgregadoArray.getPosRow(), ultimoAgregadoArray.getPosColumn());  // Celda(color, row, column)
+        //console.log("Ficha agregada: " + ultimoAgregadoArray.getColor() +  "  , " + cell.getPosRow() + "  , " + cell.getPosColumn());
+
+        let quantity = this.checkHorizontal(cell, ultimoAgregadoArray.getColor());
         return false;
-    }
-
-    nextPositionRight(pos) {
-        let deltaColumn = 87;
-        return (pos + deltaColumn);
-    }
-
-    nextPositionLeft(pos) {
-        let deltaColumn = 87;
-        return (pos - deltaColumn);
     }
 
 }

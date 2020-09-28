@@ -1,7 +1,7 @@
 class Celda {
 
-    constructor(p, r, c) {
-        this.color = p;
+    constructor(color, r, c) {
+        this.color = color;
         this.posRow = r;
         this.posColumn = c;
     }
@@ -16,17 +16,23 @@ class Celda {
         return c;
     }
 
-    setPiece(color) {
-        this.piece = color;
+    setColor(color) {
+        this.color = color;
     }
 
     getPosRow() {
         return this.posRow;
     }
 
+    setPosRow(r) {
+        this.posRow = r;
+    }
+
     getPosColumn() {
         return this.posColumn;
     }
 
-
+    setPosColumn(c) {
+        this.posColumn = c;
+    }
 }

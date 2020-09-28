@@ -105,21 +105,20 @@ function onMouseUp(event) {
     isMouseDown = false;
     let posX = event.layerX;
     let posY = event.layerY;
-    //console.log("Coordenadas: " + posX + " , " + posY);
     clickedColumn = newBoard.findColumn(posX, posY);
     if (((lastClickedPiece != null) && (clickedColumn != null)) && (clickedPiece.getColor() != playerTurn)){
         let freeRow = newBoard.locatePiece(clickedColumn);
         if (freeRow != null) {
 
-            lastClickedPiece.setPosition(clickedColumn, freeRow);                                      
-            newBoard.addPiece(lastClickedPiece.getColor(), freeRow, clickedColumn);
+            lastClickedPiece.setPosition(clickedColumn, freeRow);
 
-            isWinner = newBoard.checkGame(lastClickedPiece);
+            newBoard.addPiece(lastClickedPiece.getColor(), freeRow, clickedColumn);
+            newBoard.printArray();
+
+            isWinner = newBoard.checkGame();
 
             playerTurn = lastClickedPiece.getColor();
         }
-
-    newBoard.printArray();
     }
 }
 
@@ -183,36 +182,9 @@ function reloadImageTopBoard() {
     context.drawImage(imageTopBoard, posX, posY);
 }
 
-/* function findColumn(x, y) {
-    let column = null;
-    if ((y >= 30) && (y < 120)) {
-        if ((x >= 187) && (x < 276)) {  // Columna 1
-            column = 238;
-        }
-        if ((x >= 276) && (x < 365)) {  // Columna 2
-            column = 326;
-        }
-        if ((x >= 365) && (x < 454)) {  // Columna 3
-            column = 413;
-        }
-        if ((x >= 454) && (x < 543)) {  // Columna 4
-            column = 500;
-        }
-        if ((x >= 543) && (x < 632)) {  // Columna 5
-            column = 587;
-        }
-        if ((x >= 632) && (x < 721)) {  // Columna 6
-            column = 675;
-        }
-        if ((x >= 721) && (x <810)) {  // Columna 7
-            column = 762;
-        }
-    }
-    //console.log("Columna: " + column);
-    return column;
-} */
 
 function resetGame() {
+    playerTurn = null;
     clearCanvas();
     arrayPieces = [];
     newBoard.clear();
@@ -238,6 +210,4 @@ btn_Reset.addEventListener("click",  resetGame);
 //#endregion
 
 initPlay();
-
-
 
