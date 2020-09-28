@@ -129,6 +129,16 @@ class Tablero {
         return (posColumn - deltaColumn);
     }
 
+    nextPositionUp(posRow) {
+        let deltaRow = 85;
+        return (posRow - deltaRow);
+    }
+
+    nextPositionDown(posRow) {
+        let deltaRow = 85;
+        return (posRow + deltaRow);
+    }
+
     checkHorizontal(cell, color) {
 
         // Derecha
@@ -138,7 +148,6 @@ class Tablero {
         for (let i = 1; i <= 3; i++) {
             let c1 = nextRigthCell.getColor();
             let c2 = auxCellRigth.getColor();
-            //console.log("Buscando color:" + nextRigthCell.getColor());
             if (this.findCell(nextRigthCell.getPosRow(), nextRigthCell.getPosColumn(), color) && (c1 === c2)) {
                 //console.log(this.findCell(nextRigthCell.getPosRow(), nextRigthCell.getPosColumn()));
                 piecesFoundRigth ++;
@@ -154,7 +163,6 @@ class Tablero {
         for (let j = 1; j <= 3; j++) {
             let c3 = nextLeftCell.getColor();
             let c4 = auxCellLeft.getColor();
-            //console.log("Buscando color:" + nextLeftCell.getColor());
             if (this.findCell(nextLeftCell.getPosRow(), nextLeftCell.getPosColumn(), color) && (c3 === c4)) {
                 //console.log(this.findCell(nextLeftCell.getPosRow(), nextLeftCell.getPosColumn()));
                 piecesFoundLeft ++;
@@ -165,7 +173,60 @@ class Tablero {
 
         let total = piecesFoundLeft + piecesFoundRigth + 1;
         console.log("Encontradas: " + total + " ----> " + piecesFoundLeft + " + " + piecesFoundRigth);
-        return total;  // retornar true o false
+        return total;  
+    }
+
+
+    checkVertical(cell, color) {
+
+        // Abajo
+        let piecesFoundDown = 0;
+        let auxCellDown = cell;
+        let nextDownCell = new Celda(auxCellDown.getColor(), this.nextPositionDown(auxCellDown.getPosRow()), auxCellDown.getPosColumn());
+        for (let i = 1; i <= 3; i++) {
+            let c1 = nextDownCell.getColor();
+            let c2 = auxCellDown.getColor();
+            if (this.findCell(nextDownCell.getPosRow(), nextDownCell.getPosColumn(), color) && (c1 === c2)) {
+                piecesFoundDown ++;
+                auxCellDown.setPosRow(nextDownCell);
+                nextDownCell.setPosRow(this.nextPositionDown(nextDownCell.getPosRow()));
+            }
+        }
+
+        let total = piecesFoundDown + 1;
+        console.log("Encontradas abajo: " + total);
+        return total;  
+    }
+
+
+    checkDiagonalRigth(cell, color) {
+
+        // Arriba-derecha
+        let piecesFoundRigth = 0;
+        let auxCellRigth = cell;
+
+        let rowUp = this.nextPositionUp(auxCellRigth.getPosRow());
+        let rowRigth = this.nextPositionRight(rowUp);
+
+        let columnRigth = this.nextPositionRight(auxCellRigth.getPosColumn());
+        let columnUp = this.nextPositionUp(columnRigth);
+
+        let nextRigthCell = new Celda(auxCellRigth.getColor(), rowRigth, columnUp);
+
+        for (let i = 1; i <= 3; i++) {
+            let c1 = nextRigthCell.getColor();
+            let c2 = auxCellRigth.getColor();
+            if (this.findCell(nextRigthCell.getPosRow(), nextRigthCell.getPosColumn(), color) && (c1 === c2)) {
+                //console.log(this.findCell(nextRigthCell.getPosRow(), nextRigthCell.getPosColumn()));
+                piecesFoundRigth ++;
+                auxCellRigth = nextRigthCell;
+                nextRigthCell.setPosColumn(this.nextPositionUp(this.nextPositionRight(auxCellRigth.getPosColumn())));
+                nextRigthCell.setPosRow(this.nextPositionRight(this.nextPositionUp(auxCellRigth.getPosRow())));
+            }
+        }
+        let total = piecesFoundRigth + 1;
+        console.log("Encontradas diagonal derecha: " + total);
+        return total;  
     }
 
     checkGame() {
@@ -175,8 +236,13 @@ class Tablero {
         let cell = new Celda(ultimoAgregadoArray.getColor(), ultimoAgregadoArray.getPosRow(), ultimoAgregadoArray.getPosColumn());  // Celda(color, row, column)
         //console.log("Ficha agregada: " + ultimoAgregadoArray.getColor() +  "  , " + cell.getPosRow() + "  , " + cell.getPosColumn());
 
-        let quantity = this.checkHorizontal(cell, ultimoAgregadoArray.getColor());
-        return false;
+        //let horizontal = this.checkHorizontal(cell, ultimoAgregadoArray.getColor());
+
+        //let vertical = this.checkVertical(cell, ultimoAgregadoArray.getColor());
+
+        let diagonalArriba = this.checkDiagonalRigth(cell, ultimoAgregadoArray.getColor());
+
+        return isWinnerHere;
     }
 
 }
