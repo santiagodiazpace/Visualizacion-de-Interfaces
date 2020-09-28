@@ -191,7 +191,7 @@ class Tablero {
         }
 
         let total = piecesFoundDown;
-        console.log("Encontradas abajo: " + total);
+        //console.log("Encontradas abajo: " + total);
         return total;  
     }
 
@@ -244,7 +244,7 @@ class Tablero {
        }
 
         let total = piecesFoundUpLeft;
-        console.log("Encontradas arriba diagonal izquierda: " + total);
+        //console.log("Encontradas arriba diagonal izquierda: " + total);
         return total;  
     }
 
@@ -301,30 +301,21 @@ class Tablero {
     }
 
 
-
     checkGame() {
 
         let isWinnerHere = false;
-
         let ultimoAgregadoArray = this.piecesOnBoard[this.piecesOnBoard.length - 1];
-        let cell = new Celda(ultimoAgregadoArray.getColor(), ultimoAgregadoArray.getPosRow(), ultimoAgregadoArray.getPosColumn());  // Celda(color, row, column)
-        //console.log("Ficha agregada: " + ultimoAgregadoArray.getColor() +  "  , " + cell.getPosRow() + "  , " + cell.getPosColumn());
+        // Celda(color, row, column)
+        let cell = new Celda(ultimoAgregadoArray.getColor(), ultimoAgregadoArray.getPosRow(), ultimoAgregadoArray.getPosColumn()); 
+        
+        let horizontal = this.checkHorizontal(cell, ultimoAgregadoArray.getColor());
+        let vertical = this.checkVertical(cell, ultimoAgregadoArray.getColor());
+        let diagonalArribaDerecha = this.checkDiagonalUpRigth(cell, ultimoAgregadoArray.getColor());
+        let diagonalArribaIzquierda = this.checkDiagonalUpLeft(cell, ultimoAgregadoArray.getColor());
+        let diagonalAbajoDerecha = this.checkDiagonalDownRigth(cell, ultimoAgregadoArray.getColor());
+        let diagonalAbajoIzquierda = this.checkDiagonalDownLeft(cell, ultimoAgregadoArray.getColor());
 
-        //let horizontal = this.checkHorizontal(cell, ultimoAgregadoArray.getColor());
-
-        //let vertical = this.checkVertical(cell, ultimoAgregadoArray.getColor());
-
-        //let diagonalArribaDerecha = this.checkDiagonalUpRigth(cell, ultimoAgregadoArray.getColor());
-
-        //let diagonalArribaIzquierda = this.checkDiagonalUpLeft(cell, ultimoAgregadoArray.getColor());
-
-        //let diagonalAbajoDerecha = this.checkDiagonalDownRigth(cell, ultimoAgregadoArray.getColor());
-
-        //let diagonalAbajoIzquierda = this.checkDiagonalDownLeft(cell, ultimoAgregadoArray.getColor());
-
-
-
-        if (total >= 4) {                       // VER COMO SACAR GANADOR !!!!
+        if ( (horizontal >= 3) || (vertical >= 3) || (diagonalArribaDerecha >= 3) || (diagonalArribaIzquierda >= 3) || (diagonalAbajoDerecha >= 3) || (diagonalAbajoIzquierda >= 3) ) {                      
             isWinnerHere = true;
             console.log("Ganador !!!");
         }
