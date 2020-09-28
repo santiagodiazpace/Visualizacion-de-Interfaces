@@ -9,8 +9,10 @@
 }
 
 aside {
-    margin-top: 50px;
+    margin-top: 10px;
     margin-left: 30px;
+    width: 30%;
+    text-align: justify;
 }
 
 button {
@@ -38,4 +40,13 @@ h1 {
     font-family: Arial, Helvetica, sans-serif;
     color: white;
     margin-left: 30px;
+}
+
+#winner {
+    margin-top: 50px;
+    font-size: 30px;
+}
+
+#reds, #blues {
+    margin-top: 10px;
 }

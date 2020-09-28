@@ -4,6 +4,8 @@ class Tablero {
         this.piecesOnBoard = [];  // Fichas colocadas en tablero amarillo, arreglo de Celda.
     }
 
+//#region - Utilities
+
     clear() {
         this.piecesOnBoard = [];
     }
@@ -138,6 +140,10 @@ class Tablero {
         let deltaRow = 85;
         return (posRow + deltaRow);
     }
+
+//#endregion
+
+//#region - Check winner
 
     checkHorizontal(cell, color) {
 
@@ -320,7 +326,19 @@ class Tablero {
             console.log("Ganador !!!");
         }
 
+        if ((diagonalArribaDerecha + diagonalAbajoIzquierda) >= 3) {
+            isWinnerHere = true;
+            console.log("Ganador !!!");
+        }
+
+        if ((diagonalArribaIzquierda + diagonalAbajoDerecha) >= 3) {
+            isWinnerHere = true;
+            console.log("Ganador !!!");
+        }
+
         return isWinnerHere;
     }
+
+//#endregion
 
 }

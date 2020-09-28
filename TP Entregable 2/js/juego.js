@@ -10,6 +10,8 @@ let context = canvas.getContext("2d");
 let canvasWidth = canvas.width;
 let canvasHeight = canvas.height;
 
+let remainingRed = NUMPIECES;
+let remainingBlue = NUMPIECES;
 let arrayPieces = [];
 let lastClickedPiece = null;
 let isMouseDown = false;
@@ -106,7 +108,7 @@ function onMouseUp(event) {
     let posX = event.layerX;
     let posY = event.layerY;
     clickedColumn = newBoard.findColumn(posX, posY);
-    if (((lastClickedPiece != null) && (clickedColumn != null)) && (clickedPiece.getColor() != playerTurn)){
+    if (((lastClickedPiece != null) && (clickedColumn != null)) && (clickedPiece.getColor() != playerTurn) && (!isWinner)){
         let freeRow = newBoard.locatePiece(clickedColumn);
         if (freeRow != null) {
 
@@ -116,8 +118,24 @@ function onMouseUp(event) {
             newBoard.printArray();
 
             isWinner = newBoard.checkGame();
+            let win = document.querySelector("#winner");
+            if (isWinner) {
+                if (clickedPiece.getColor() === "#FF0000") {
+                    win.innerHTML = "Ganador Jugador ROJO !!!";
+                } else {
+                    win.innerHTML = "Ganador Jugador AZUL !!!";
+                }
 
+            }
             playerTurn = lastClickedPiece.getColor();
+            
+            let r = document.querySelector("#reds");
+            let b = document.querySelector("#blues");
+            if (clickedPiece.getColor() === "#FF0000") {
+                r.innerHTML = "Fichas rojas: " + (--remainingRed);
+            } else {
+                b.innerHTML = "Fichas azules: " + (--remainingBlue);
+            }
         }
     }
 }
@@ -185,9 +203,21 @@ function reloadImageTopBoard() {
 
 function resetGame() {
     playerTurn = null;
+    isWinner = false;
     clearCanvas();
     arrayPieces = [];
     newBoard.clear();
+    remainingRed = NUMPIECES;
+    remainingBlue = NUMPIECES;
+
+    let win = document.querySelector("#winner");
+    win.innerHTML = " ";
+
+    let r = document.querySelector("#reds");
+    let b = document.querySelector("#blues");
+    r.innerHTML = " ";
+    b.innerHTML = " ";
+
     for (let i = 1 ; i <= NUMPIECES; i++) {
         addPiece(BLUE);
         addPiece(RED);
@@ -208,6 +238,7 @@ btn_Reset.addEventListener("click",  resetGame);
 
 
 //#endregion
+
 
 initPlay();
 
