@@ -18,6 +18,27 @@ class Ficha {
         this.context.lineWidth = 1;
         this.context.stroke();
         this.context.fill();
+
+        this.context.beginPath();
+        this.context.arc(this.posX, this.posY, 30, 0, 2 * Math.PI);
+        this.context.lineWidth = 1;
+        if (this.getColor() === "#FF0000") {
+            this.context.fillStyle = "#C73232";
+        } else {
+            this.context.fillStyle = "#3239C7";
+        }
+        this.context.fill();
+
+        this.context.beginPath();
+        this.context.arc(this.posX, this.posY, 20, 0, 2 * Math.PI);
+        this.context.lineWidth = 1;
+        if (this.getColor() === "#FF0000") {
+            this.context.fillStyle = "#FF0000";
+        } else {
+            this.context.fillStyle = "#0000FF";
+        }
+        this.context.fill();
+
         
         if (this.highligthed === true) {
             this.context.strokeStyle = this.highligthedColor;
@@ -27,6 +48,7 @@ class Ficha {
         
         this.context.closePath();
     }
+
 
     getRadius() {
         return this.radius;
