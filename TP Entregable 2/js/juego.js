@@ -215,8 +215,8 @@ function resetGame() {
 
     let r = document.querySelector("#reds");
     let b = document.querySelector("#blues");
-    r.innerHTML = " ";
-    b.innerHTML = " ";
+    r.innerHTML = "Fichas rojas: 21";
+    b.innerHTML = "Fichas azules: 21 ";
 
     for (let i = 1 ; i <= NUMPIECES; i++) {
         addPiece(BLUE);
