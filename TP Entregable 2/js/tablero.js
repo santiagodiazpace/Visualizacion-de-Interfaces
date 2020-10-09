@@ -13,9 +13,9 @@ class Tablero {
     printArray() {
         console.log("----> Arreglo:");
         for (let i=0; i<this.piecesOnBoard.length; i++) {
-            console.log("  Ficha: " + this.piecesOnBoard[i].getColor() + ", posRow: " + this.piecesOnBoard[i].getPosRow() + " en Y - PosColumm: " + this.piecesOnBoard[i].getPosColumn() + " en X");
+            //console.log("  Ficha: " + this.piecesOnBoard[i].getColor() + ", posRow: " + this.piecesOnBoard[i].getPosRow() + " en Y - PosColumm: " + this.piecesOnBoard[i].getPosColumn() + " en X");
         }
-        console.log(" Tamaño: " + this.piecesOnBoard.length);
+        //console.log(" Tamaño: " + this.piecesOnBoard.length);
     }
 
     findCell(r, c, color) {
@@ -197,7 +197,7 @@ class Tablero {
         }
 
         let total = piecesFoundDown;
-        //console.log("Encontradas abajo: " + total);
+        console.log("Encontradas abajo: " + total);
         return total;  
     }
 
@@ -217,13 +217,14 @@ class Tablero {
             let c2 = auxCellRigth.getColor();
             if (this.findCell(nextRigthCell.getPosRow(), nextRigthCell.getPosColumn(), color) && (c1 === c2)) {
                 piecesFoundUpRigth ++;
-                auxCellRigth = nextRigthCell;
+                auxCellRigth.setPosRow(nextRigthCell.getPosRow());
+                auxCellRigth.setPosColumn(nextRigthCell.getPosColumn());
                 nextRigthCell.setPosRow(this.nextPositionUp(rowUp));
                 nextRigthCell.setPosColumn(this.nextPositionRight(columnRigth));
             }
         }
         let total = piecesFoundUpRigth;
-        //console.log("Encontradas arriba diagonal derecha: " + total);
+        console.log("Encontradas arriba diagonal derecha: " + total);
         return total;  
     }
 
@@ -243,14 +244,15 @@ class Tablero {
            let c2 = auxCellLeft.getColor();
            if (this.findCell(nextLeftCell.getPosRow(), nextLeftCell.getPosColumn(), color) && (c1 === c2)) {
                piecesFoundUpLeft ++;
-               auxCellLeft = nextLeftCell;
+               auxCellLeft.setPosRow(nextLeftCell.getPosRow());
+               auxCellLeft.setPosColumn(nextLeftCell.getPosColumn());
                nextLeftCell.setPosRow(this.nextPositionUp(rowUpLeft));
                nextLeftCell.setPosColumn(this.nextPositionLeft(columnLeft));
            }
        }
 
         let total = piecesFoundUpLeft;
-        //console.log("Encontradas arriba diagonal izquierda: " + total);
+        console.log("Encontradas arriba diagonal izquierda: " + total);
         return total;  
     }
 
@@ -270,13 +272,14 @@ class Tablero {
             let c2 = auxCellRigth.getColor();
             if (this.findCell(nextRigthCell.getPosRow(), nextRigthCell.getPosColumn(), color) && (c1 === c2)) {
                 piecesFoundDownRigth ++;
-                auxCellRigth = nextRigthCell;
+                auxCellRigth.setPosRow(nextRigthCell.getPosRow());
+                auxCellRigth.setPosColumn(nextRigthCell.getPosColumn());
                 nextRigthCell.setPosRow(this.nextPositionDown(rowDown));
                 nextRigthCell.setPosColumn(this.nextPositionRight(columnRigth));
             }
         }
         let total = piecesFoundDownRigth;
-        //console.log("Encontradas abajo diagonal derecha: " + total);
+        console.log("Encontradas abajo diagonal derecha: " + total);
         return total; 
     }
 
@@ -296,13 +299,14 @@ class Tablero {
             let c2 = auxCellLeft.getColor();
             if (this.findCell(nextLeftCell.getPosRow(), nextLeftCell.getPosColumn(), color) && (c1 === c2)) {
                 piecesFoundDownLeft ++;
-                auxCellLeft = nextLeftCell;
-                nextLeftCell.setPosRow(this.nextPositionLeft(rowDown));
-                nextLeftCell.setPosColumn(this.nextPositionDown(color));
+                auxCellLeft.setPosRow(nextLeftCell.getPosRow());
+                auxCellLeft.setPosColumn(nextLeftCell.getPosColumn());
+                nextLeftCell.setPosRow(this.nextPositionDown(rowDown));
+                nextLeftCell.setPosColumn(this.nextPositionLeft(columnLeft));
             }
         }
         let total = piecesFoundDownLeft;
-        //console.log("Encontradas abajo diagonal izquierda: " + total);
+        console.log("Encontradas abajo diagonal izquierda: " + total);
         return total; 
     }
 
@@ -315,10 +319,15 @@ class Tablero {
         let cell = new Celda(ultimoAgregadoArray.getColor(), ultimoAgregadoArray.getPosRow(), ultimoAgregadoArray.getPosColumn()); 
         
         let horizontal = this.checkHorizontal(cell, ultimoAgregadoArray.getColor());
+
         let vertical = this.checkVertical(cell, ultimoAgregadoArray.getColor());
+
         let diagonalArribaDerecha = this.checkDiagonalUpRigth(cell, ultimoAgregadoArray.getColor());
+
         let diagonalArribaIzquierda = this.checkDiagonalUpLeft(cell, ultimoAgregadoArray.getColor());
+
         let diagonalAbajoDerecha = this.checkDiagonalDownRigth(cell, ultimoAgregadoArray.getColor());
+
         let diagonalAbajoIzquierda = this.checkDiagonalDownLeft(cell, ultimoAgregadoArray.getColor());
 
         if ( (horizontal >= 3) || (vertical >= 3) || (diagonalArribaDerecha >= 3) || (diagonalArribaIzquierda >= 3) || (diagonalAbajoDerecha >= 3) || (diagonalAbajoIzquierda >= 3) ) {                      

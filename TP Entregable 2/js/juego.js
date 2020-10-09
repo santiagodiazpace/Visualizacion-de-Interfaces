@@ -19,9 +19,11 @@ let clickedColumn = null;
 let clickedPiece = null;
 let isWinner = false;
 let playerTurn = null;
+let timeOK = true;
 
 let imageBoard = new Image();
 let imageTopBoard = new Image();
+let imageBack = new Image();
 let newBoard = new Tablero();
 
 
@@ -108,7 +110,7 @@ function onMouseUp(event) {
     let posX = event.layerX;
     let posY = event.layerY;
     clickedColumn = newBoard.findColumn(posX, posY);
-    if (((lastClickedPiece != null) && (clickedColumn != null)) && (clickedPiece.getColor() != playerTurn) && (!isWinner)){
+    if (((lastClickedPiece != null) && (clickedColumn != null)) && (clickedPiece.getColor() != playerTurn) && (!isWinner) && (timeOK === true)){
         let freeRow = newBoard.locatePiece(clickedColumn);
         if (freeRow != null) {
 
@@ -131,10 +133,13 @@ function onMouseUp(event) {
             
             let r = document.querySelector("#reds");
             let b = document.querySelector("#blues");
+            let t = document.querySelector("#turno");
             if (clickedPiece.getColor() === "#FF0000") {
                 r.innerHTML = "Fichas rojas: " + (--remainingRed);
+                t.innerHTML = "Turno jugador AZUL";
             } else {
                 b.innerHTML = "Fichas azules: " + (--remainingBlue);
+                t.innerHTML = "Turno jugador ROJO";
             }
         }
     }
@@ -152,20 +157,33 @@ function initPlay() {
     }
     console.log("--> " + arrayPieces.length + " fichas creadas");
 
-    drawPieces();
+    //drawImageBack();
     drawImageBoard();
     drawImageTopBoard();
+    drawPieces();
 
     canvas.addEventListener("mousedown", onMouseDown,false);
     canvas.addEventListener("mouseup", onMouseUp,false);
     canvas.addEventListener("mousemove", onMouseMoved,false);
+
+    let t = document.querySelector("#turno");
+    t.innerHTML = "Inicie el juego...";
 }
 
 function clearCanvas() {
     context.fillStyle = "white";
     context.fillRect(0, 0, canvasWidth, canvasHeight);
+    //reloadImageBack();
     reloadImageBoard();
     reloadImageTopBoard();
+}
+
+function drawImageBack() {
+    imageBack.src = "imagenes/fondo.png";
+
+    imageBack.onload = function () {
+        context.drawImage(imageBack, 0, 0);
+    }
 }
 
 function drawImageBoard() {
@@ -176,6 +194,10 @@ function drawImageBoard() {
         let posY = (canvas.height - imageBoard.height) / 2 + 50;
         context.drawImage(imageBoard, posX, posY);
     }
+}
+
+function reloadImageBack() {
+    context.drawImage(imageBack, 0, 0);
 }
 
 function reloadImageBoard() {
@@ -209,6 +231,7 @@ function resetGame() {
     newBoard.clear();
     remainingRed = NUMPIECES;
     remainingBlue = NUMPIECES;
+    timeOK = true;
 
     let win = document.querySelector("#winner");
     win.innerHTML = " ";
@@ -217,6 +240,8 @@ function resetGame() {
     let b = document.querySelector("#blues");
     r.innerHTML = "Fichas rojas: 21";
     b.innerHTML = "Fichas azules: 21 ";
+    let t = document.querySelector("#turno");
+    t.innerHTML = "Inicie el juego...";
 
     for (let i = 1 ; i <= NUMPIECES; i++) {
         addPiece(BLUE);
@@ -236,6 +261,29 @@ function resetGame() {
 let btn_Reset = document.querySelector("#btnReset");
 btn_Reset.addEventListener("click",  resetGame);
 
+
+function runTimer() {
+    let myTimer = setInterval(function(){
+        timeleft--;
+        document.getElementById("countdowntimer").textContent = timeleft;
+        if(timeleft <= 0) {
+            clearInterval(myTimer);
+            timeOK = false;
+            let t = document.querySelector("#turno");
+            t.innerHTML = "Terminó el tiempo";
+            }
+        },1000);
+
+    let timeleft = 60;
+    let timerBar = setInterval(function(){
+            document.getElementById("progressBar").value = 60 - timeleft;
+            if(timeleft <= 0)
+            clearInterval(timerBar);
+    },1000);
+}
+
+let btn_timer = document.querySelector("#btnTimer");
+btn_timer.addEventListener("click", runTimer);
 
 //#endregion
 

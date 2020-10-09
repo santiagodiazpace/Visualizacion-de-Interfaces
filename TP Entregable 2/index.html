@@ -12,16 +12,21 @@
     <header>
         <h1>Juego 4 En Linea</h1>
     </header>
-    <div class="contenedor">
+
+    <div id="contenedor">
         <section>
             <canvas id="myCanvas" width="1000" height="700"> </canvas>
         </section>
         <aside>
             <p>Cada jugador debe colocar una ficha. Si cuatro o más fichas quedan en una línea contínua vertical, horizontal o diagonal, este jugador gana la partida. 
                 Si todas las casillas del tablero están ocupadas y ningún jugador cumple la condición anterior para ganar, en este caso la partida finaliza en empate.</p>
-            <p>Puede comenzar jugador azul o rojo</p>
+            <p>El juego se puede llevar a cabo con o sin tiempo (fijo de 60 seg).  Puede comenzar jugador ROJO o AZUL</p>
             <button id="btnReset">Reiniciar juego</button>
             <div id="winner"></div>
+            <button id="btnTimer">Iniciar tiempo</button> <br>
+            <progress value="0" max="60" id="progressBar"></progress>
+            <p> Tiempo restante: <span id="countdowntimer">60 </span> Segundos</p>
+            <div id="turno"></div>
             <div id="reds">Fichas rojas: 21</div>
             <div id="blues">Fichas azules: 21</div>
         </aside>

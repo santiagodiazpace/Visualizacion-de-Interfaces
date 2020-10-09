@@ -1,0 +1,38 @@
+
+
+@keyframes run {
+    0% {background-position: 0px}
+    100% {background-position: -5763px}
+}
+
+#dino {
+    width: 720px;
+    height: 500px;
+    background-image: url("dino_run.png");
+    position: relative;
+    left: 500px;
+    animation: run 1s steps(8) infinite;
+    bottom: 50px;
+}
+
+#sky {
+    background:url("background1.png");
+    animation: moveSky 100s linear infinite;
+  }
+
+  @keyframes moveSky {
+    0% { background-position:0px } 
+    100% { background-position:-1200px }
+}
+
+#floor {
+    background:url("background3.png") no-repeat;
+    animation: moveFloor 2s linear infinite;
+    position: relative;
+    bottom: -100px;
+}
+
+@keyframes moveFloor {
+    0% { background-position:0px } 
+    100% { background-position:-2000px }
+}
