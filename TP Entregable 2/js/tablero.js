@@ -11,7 +11,7 @@ class Tablero {
     }
 
     printArray() {
-        console.log("----> Arreglo:");
+        //console.log("----> Arreglo:");
         for (let i=0; i<this.piecesOnBoard.length; i++) {
             //console.log("  Ficha: " + this.piecesOnBoard[i].getColor() + ", posRow: " + this.piecesOnBoard[i].getPosRow() + " en Y - PosColumm: " + this.piecesOnBoard[i].getPosColumn() + " en X");
         }
@@ -156,7 +156,7 @@ class Tablero {
             let c2 = auxCellRigth.getColor();
             if (this.findCell(nextRigthCell.getPosRow(), nextRigthCell.getPosColumn(), color) && (c1 === c2)) {
                 piecesFoundRigth ++;
-                auxCellRigth.setPosColumn(nextRigthCell);
+                auxCellRigth.setPosColumn(nextRigthCell.getPosColumn());
                 nextRigthCell.setPosColumn(this.nextPositionRight(nextRigthCell.getPosColumn()));
             }
         }
@@ -170,12 +170,13 @@ class Tablero {
             let c4 = auxCellLeft.getColor();
             if (this.findCell(nextLeftCell.getPosRow(), nextLeftCell.getPosColumn(), color) && (c3 === c4)) {
                 piecesFoundLeft ++;
-                auxCellLeft.setPosColumn(nextLeftCell);
+                auxCellLeft.setPosColumn(nextLeftCell.getPosColumn());
                 nextLeftCell.setPosColumn(this.nextPositionLeft(nextLeftCell.getPosColumn()));
             } 
         }
 
         let total = piecesFoundLeft + piecesFoundRigth;
+        //console.log("Encontradas izq: " + piecesFoundLeft + " der: " + piecesFoundRigth + " = " + total);
         return total;  
     }
 
@@ -191,14 +192,12 @@ class Tablero {
             let c2 = auxCellDown.getColor();
             if (this.findCell(nextDownCell.getPosRow(), nextDownCell.getPosColumn(), color) && (c1 === c2)) {
                 piecesFoundDown ++;
-                auxCellDown.setPosRow(nextDownCell);
+                auxCellDown.setPosRow(nextDownCell.getPosRow());
                 nextDownCell.setPosRow(this.nextPositionDown(nextDownCell.getPosRow()));
             }
         }
-
-        let total = piecesFoundDown;
-        console.log("Encontradas abajo: " + total);
-        return total;  
+        //console.log("Encontradas abajo: " + piecesFoundDown);
+        return  piecesFoundDown;  
     }
 
 
@@ -219,12 +218,12 @@ class Tablero {
                 piecesFoundUpRigth ++;
                 auxCellRigth.setPosRow(nextRigthCell.getPosRow());
                 auxCellRigth.setPosColumn(nextRigthCell.getPosColumn());
-                nextRigthCell.setPosRow(this.nextPositionUp(rowUp));
-                nextRigthCell.setPosColumn(this.nextPositionRight(columnRigth));
+                nextRigthCell.setPosRow(this.nextPositionUp(nextRigthCell.getPosRow()));
+                nextRigthCell.setPosColumn(this.nextPositionRight(nextRigthCell.getPosColumn()));
             }
         }
         let total = piecesFoundUpRigth;
-        console.log("Encontradas arriba diagonal derecha: " + total);
+        //console.log("Encontradas arriba diagonal derecha: " + total);
         return total;  
     }
 
@@ -246,13 +245,13 @@ class Tablero {
                piecesFoundUpLeft ++;
                auxCellLeft.setPosRow(nextLeftCell.getPosRow());
                auxCellLeft.setPosColumn(nextLeftCell.getPosColumn());
-               nextLeftCell.setPosRow(this.nextPositionUp(rowUpLeft));
-               nextLeftCell.setPosColumn(this.nextPositionLeft(columnLeft));
+               nextLeftCell.setPosRow(this.nextPositionUp(nextLeftCell.getPosRow()));
+               nextLeftCell.setPosColumn(this.nextPositionLeft(nextLeftCell.getPosColumn()));
            }
        }
 
         let total = piecesFoundUpLeft;
-        console.log("Encontradas arriba diagonal izquierda: " + total);
+        //console.log("Encontradas arriba diagonal izquierda: " + total);
         return total;  
     }
 
@@ -274,12 +273,12 @@ class Tablero {
                 piecesFoundDownRigth ++;
                 auxCellRigth.setPosRow(nextRigthCell.getPosRow());
                 auxCellRigth.setPosColumn(nextRigthCell.getPosColumn());
-                nextRigthCell.setPosRow(this.nextPositionDown(rowDown));
-                nextRigthCell.setPosColumn(this.nextPositionRight(columnRigth));
+                nextRigthCell.setPosRow(this.nextPositionDown(nextRigthCell.getPosRow()));
+                nextRigthCell.setPosColumn(this.nextPositionRight(nextRigthCell.getPosColumn()));
             }
         }
         let total = piecesFoundDownRigth;
-        console.log("Encontradas abajo diagonal derecha: " + total);
+        //console.log("Encontradas abajo diagonal derecha: " + total);
         return total; 
     }
 
@@ -301,12 +300,12 @@ class Tablero {
                 piecesFoundDownLeft ++;
                 auxCellLeft.setPosRow(nextLeftCell.getPosRow());
                 auxCellLeft.setPosColumn(nextLeftCell.getPosColumn());
-                nextLeftCell.setPosRow(this.nextPositionDown(rowDown));
-                nextLeftCell.setPosColumn(this.nextPositionLeft(columnLeft));
+                nextLeftCell.setPosRow(this.nextPositionDown(nextLeftCell.getPosRow()));
+                nextLeftCell.setPosColumn(this.nextPositionLeft(nextLeftCell.getPosColumn()));
             }
         }
         let total = piecesFoundDownLeft;
-        console.log("Encontradas abajo diagonal izquierda: " + total);
+        //console.log("Encontradas abajo diagonal izquierda: " + total);
         return total; 
     }
 
@@ -315,8 +314,11 @@ class Tablero {
 
         let isWinnerHere = false;
         let ultimoAgregadoArray = this.piecesOnBoard[this.piecesOnBoard.length - 1];
+
         // Celda(color, row, column)
         let cell = new Celda(ultimoAgregadoArray.getColor(), ultimoAgregadoArray.getPosRow(), ultimoAgregadoArray.getPosColumn()); 
+        
+        // Check pieces
         
         let horizontal = this.checkHorizontal(cell, ultimoAgregadoArray.getColor());
 
@@ -330,17 +332,18 @@ class Tablero {
 
         let diagonalAbajoIzquierda = this.checkDiagonalDownLeft(cell, ultimoAgregadoArray.getColor());
 
-        if ( (horizontal >= 3) || (vertical >= 3) || (diagonalArribaDerecha >= 3) || (diagonalArribaIzquierda >= 3) || (diagonalAbajoDerecha >= 3) || (diagonalAbajoIzquierda >= 3) ) {                      
+        //Check winner
+        if ( (horizontal >= 3) || (vertical >= 3)  ) {                      
             isWinnerHere = true;
             console.log("Ganador !!!");
         }
 
-        if ((diagonalArribaDerecha + diagonalAbajoIzquierda) >= 3) {
+        if ((diagonalArribaDerecha >= 3) || (diagonalAbajoIzquierda >=3) ) {
             isWinnerHere = true;
             console.log("Ganador !!!");
         }
 
-        if ((diagonalArribaIzquierda + diagonalAbajoDerecha) >= 3) {
+        if ((diagonalArribaIzquierda >= 3) || (diagonalAbajoDerecha >= 3)) {
             isWinnerHere = true;
             console.log("Ganador !!!");
         }
