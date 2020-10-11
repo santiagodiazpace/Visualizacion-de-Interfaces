@@ -26,6 +26,9 @@ let imageTopBoard = new Image();
 let imageBack = new Image();
 let newBoard = new Tablero();
 
+let myTimer;
+let timerBar;
+
 
 //#region - Pieces
 
@@ -168,19 +171,21 @@ function initPlay() {
 
     let t = document.querySelector("#turno");
     t.innerHTML = "Inicie el juego...";
+
+    let c = document.querySelector("#countdowntimer");
+    c.innerHTML = "--";
 }
 
 function clearCanvas() {
     context.fillStyle = "white";
     context.fillRect(0, 0, canvasWidth, canvasHeight);
-    //reloadImageBack();
+    reloadImageBack();
     reloadImageBoard();
     reloadImageTopBoard();
 }
 
 function drawImageBack() {
     imageBack.src = "imagenes/fondo.png";
-
     imageBack.onload = function () {
         context.drawImage(imageBack, 0, 0);
     }
@@ -188,7 +193,6 @@ function drawImageBack() {
 
 function drawImageBoard() {
     imageBoard.src = "imagenes/tablero.png";
-
     imageBoard.onload = function () {
         let posX = (canvas.width - imageBoard.width) / 2;
         let posY = (canvas.height - imageBoard.height) / 2 + 50;
@@ -232,6 +236,8 @@ function resetGame() {
     remainingRed = NUMPIECES;
     remainingBlue = NUMPIECES;
     timeOK = true;
+    clearInterval(myTimer);
+    clearInterval(timerBar);
 
     let win = document.querySelector("#winner");
     win.innerHTML = " ";
@@ -242,6 +248,9 @@ function resetGame() {
     b.innerHTML = "Fichas azules: 21 ";
     let t = document.querySelector("#turno");
     t.innerHTML = "Inicie el juego...";
+
+    let c = document.querySelector("#countdowntimer");
+    c.innerHTML = "--";
 
     for (let i = 1 ; i <= NUMPIECES; i++) {
         addPiece(BLUE);
@@ -263,7 +272,7 @@ btn_Reset.addEventListener("click",  resetGame);
 
 
 function runTimer() {
-    let myTimer = setInterval(function(){
+    myTimer = setInterval(function(){
         timeleft--;
         document.getElementById("countdowntimer").textContent = timeleft;
         if(timeleft <= 0) {
@@ -275,7 +284,7 @@ function runTimer() {
         },1000);
 
     let timeleft = 60;
-    let timerBar = setInterval(function(){
+    timerBar = setInterval(function(){
             document.getElementById("progressBar").value = 60 - timeleft;
             if(timeleft <= 0)
             clearInterval(timerBar);
