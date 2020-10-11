@@ -169,14 +169,21 @@ class Tablero {
             let c3 = nextLeftCell.getColor();
             let c4 = auxCellLeft.getColor();
             if (this.findCell(nextLeftCell.getPosRow(), nextLeftCell.getPosColumn(), color) && (c3 === c4)) {
+                console.log(nextLeftCell.getPosColumn());
                 piecesFoundLeft ++;
                 auxCellLeft.setPosColumn(nextLeftCell.getPosColumn());
                 nextLeftCell.setPosColumn(this.nextPositionLeft(nextLeftCell.getPosColumn()));
             } 
         }
 
+        if (piecesFoundRigth > 0) {
+            piecesFoundLeft --;
+            console.log(piecesFoundLeft);
+        }
+        console.log("izq: " + piecesFoundLeft);
+        console.log(" der: " + piecesFoundRigth);
         let total = piecesFoundLeft + piecesFoundRigth;
-        //console.log("Encontradas izq: " + piecesFoundLeft + " der: " + piecesFoundRigth + " = " + total);
+        console.log(" total: " + total);
         return total;  
     }
 
@@ -344,6 +351,16 @@ class Tablero {
         }
 
         if ((diagonalArribaIzquierda >= 3) || (diagonalAbajoDerecha >= 3)) {
+            isWinnerHere = true;
+            console.log("Ganador !!!");
+        }
+
+        if ((diagonalArribaDerecha + diagonalAbajoIzquierda) >= 3) {
+            isWinnerHere = true;
+            console.log("Ganador !!!");
+        }
+
+        if ((diagonalArribaIzquierda + diagonalAbajoDerecha) >= 3) {
             isWinnerHere = true;
             console.log("Ganador !!!");
         }
