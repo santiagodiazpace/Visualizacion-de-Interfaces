@@ -11,11 +11,11 @@ class Tablero {
     }
 
     printArray() {
-        //console.log("----> Arreglo:");
+/*         console.log("----> Arreglo:");
         for (let i=0; i<this.piecesOnBoard.length; i++) {
-            //console.log("  Ficha: " + this.piecesOnBoard[i].getColor() + ", posRow: " + this.piecesOnBoard[i].getPosRow() + " en Y - PosColumm: " + this.piecesOnBoard[i].getPosColumn() + " en X");
+            console.log("  Ficha: " + this.piecesOnBoard[i].getColor() + ", posRow: " + this.piecesOnBoard[i].getPosRow() + " en Y - PosColumm: " + this.piecesOnBoard[i].getPosColumn() + " en X");
         }
-        //console.log(" Tamaño: " + this.piecesOnBoard.length);
+        console.log(" Tamaño: " + this.piecesOnBoard.length); */
     }
 
     findCell(r, c, color) {
@@ -149,8 +149,8 @@ class Tablero {
 
         // Derecha
         let piecesFoundRigth = 0;
-        let auxCellRigth = cell;
-        let nextRigthCell = new Celda(auxCellRigth.getColor(), auxCellRigth.getPosRow(), this.nextPositionRight(auxCellRigth.getPosColumn()));
+        let auxCellRigth = new Celda(cell.getColor(), cell.getPosRow(), cell.getPosColumn());
+        let nextRigthCell = new Celda(cell.getColor(), cell.getPosRow(), this.nextPositionRight(cell.getPosColumn()));
         for (let i = 1; i <= 3; i++) {
             let c1 = nextRigthCell.getColor();
             let c2 = auxCellRigth.getColor();
@@ -163,27 +163,22 @@ class Tablero {
 
         // Izquierda
         let piecesFoundLeft = 0;
-        let auxCellLeft = cell;
-        let nextLeftCell = new Celda(auxCellLeft.getColor(), auxCellLeft.getPosRow(), this.nextPositionLeft(auxCellLeft.getPosColumn()));
+        let auxCellLeft = new Celda(cell.getColor(), cell.getPosRow(), cell.getPosColumn());
+        let nextLeftCell = new Celda(cell.getColor(), cell.getPosRow(), this.nextPositionLeft(cell.getPosColumn()));
         for (let j = 1; j <= 3; j++) {
             let c3 = nextLeftCell.getColor();
             let c4 = auxCellLeft.getColor();
             if (this.findCell(nextLeftCell.getPosRow(), nextLeftCell.getPosColumn(), color) && (c3 === c4)) {
-                console.log(nextLeftCell.getPosColumn());
                 piecesFoundLeft ++;
                 auxCellLeft.setPosColumn(nextLeftCell.getPosColumn());
                 nextLeftCell.setPosColumn(this.nextPositionLeft(nextLeftCell.getPosColumn()));
             } 
         }
-
-        if (piecesFoundRigth > 0) {
-            piecesFoundLeft --;
-            console.log(piecesFoundLeft);
-        }
-        console.log("izq: " + piecesFoundLeft);
-        console.log(" der: " + piecesFoundRigth);
+        //console.log("------------------------");
+        //console.log("izq: " + piecesFoundLeft);
+        //console.log("der: " + piecesFoundRigth);
         let total = piecesFoundLeft + piecesFoundRigth;
-        console.log(" total: " + total);
+        //console.log("total: " + total);
         return total;  
     }
 
@@ -192,7 +187,7 @@ class Tablero {
 
         // Abajo
         let piecesFoundDown = 0;
-        let auxCellDown = cell;
+        let auxCellDown = new Celda(cell.getColor(), cell.getPosRow(), cell.getPosColumn());
         let nextDownCell = new Celda(auxCellDown.getColor(), this.nextPositionDown(auxCellDown.getPosRow()), auxCellDown.getPosColumn());
         for (let i = 1; i <= 3; i++) {
             let c1 = nextDownCell.getColor();
@@ -212,7 +207,7 @@ class Tablero {
 
         // Arriba-diagonal-derecha
         let piecesFoundUpRigth = 0;
-        let auxCellRigth = cell;
+        let auxCellRigth = new Celda(cell.getColor(), cell.getPosRow(), cell.getPosColumn());
 
         let rowUp = this.nextPositionUp(auxCellRigth.getPosRow());
         let columnRigth = this.nextPositionRight(auxCellRigth.getPosColumn());
@@ -239,7 +234,7 @@ class Tablero {
 
        // Arriba-diagonal-izquierda
        let piecesFoundUpLeft = 0;
-       let auxCellLeft = cell;
+       let auxCellLeft = new Celda(cell.getColor(), cell.getPosRow(), cell.getPosColumn());
 
        let rowUpLeft = this.nextPositionUp(auxCellLeft.getPosRow());
        let columnLeft = this.nextPositionLeft(auxCellLeft.getPosColumn());
@@ -267,7 +262,7 @@ class Tablero {
 
         // Abajo-diagonal-derecha
         let piecesFoundDownRigth = 0;
-        let auxCellRigth = cell;
+        let auxCellRigth = new Celda(cell.getColor(), cell.getPosRow(), cell.getPosColumn());
 
         let rowDown = this.nextPositionDown(auxCellRigth.getPosRow());
         let columnRigth = this.nextPositionRight(auxCellRigth.getPosColumn());
@@ -294,7 +289,7 @@ class Tablero {
 
         // Abajo-diagonal-izquierda
         let piecesFoundDownLeft = 0;
-        let auxCellLeft = cell;
+        let auxCellLeft = new Celda(cell.getColor(), cell.getPosRow(), cell.getPosColumn());
 
         let rowDown = this.nextPositionDown(auxCellLeft.getPosRow());
         let columnLeft = this.nextPositionLeft(auxCellLeft.getPosColumn());
@@ -338,6 +333,7 @@ class Tablero {
         let diagonalAbajoDerecha = this.checkDiagonalDownRigth(cell, ultimoAgregadoArray.getColor());
 
         let diagonalAbajoIzquierda = this.checkDiagonalDownLeft(cell, ultimoAgregadoArray.getColor());
+
 
         //Check winner
         if ( (horizontal >= 3) || (vertical >= 3)  ) {                      

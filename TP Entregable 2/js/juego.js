@@ -23,7 +23,7 @@ let timeOK = true;
 
 let imageBoard = new Image();
 let imageTopBoard = new Image();
-let imageBack = new Image();
+
 let newBoard = new Tablero();
 
 let myTimer;
@@ -160,7 +160,6 @@ function initPlay() {
     }
     console.log("--> " + arrayPieces.length + " fichas creadas");
 
-    //drawImageBack();
     drawImageBoard();
     drawImageTopBoard();
     drawPieces();
@@ -177,9 +176,8 @@ function initPlay() {
 }
 
 function clearCanvas() {
-    context.fillStyle = "white";
+    context.fillStyle = "#E3EEED";
     context.fillRect(0, 0, canvasWidth, canvasHeight);
-    reloadImageBack();
     reloadImageBoard();
     reloadImageTopBoard();
 }
@@ -200,9 +198,6 @@ function drawImageBoard() {
     }
 }
 
-function reloadImageBack() {
-    context.drawImage(imageBack, 0, 0);
-}
 
 function reloadImageBoard() {
     let posX = (canvas.width - imageBoard.width) / 2;

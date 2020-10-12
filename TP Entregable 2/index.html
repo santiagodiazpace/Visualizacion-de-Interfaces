@@ -18,17 +18,21 @@
             <canvas id="myCanvas" width="1000" height="700"> </canvas>
         </section>
         <aside>
-            <p>Cada jugador debe colocar una ficha. Si cuatro o más fichas quedan en una línea contínua vertical, horizontal o diagonal, este jugador gana la partida. 
-                Si todas las casillas del tablero están ocupadas y ningún jugador cumple la condición anterior para ganar, en este caso la partida finaliza en empate.</p>
-            <p>El juego se puede llevar a cabo con o sin tiempo (fijo de 60 seg).  Puede comenzar jugador ROJO o AZUL</p>
-            <button id="btnReset">Reiniciar juego</button>
-            <div id="winner"></div>
-            <button id="btnTimer">Iniciar tiempo</button> <br>
+            <div id="text">
+                <p>Cada jugador debe colocar una ficha. Si cuatro o más fichas quedan en una línea contínua vertical, horizontal o diagonal, este jugador gana la partida. 
+                    Si todas las casillas del tablero están ocupadas y ningún jugador cumple la condición anterior para ganar, en este caso la partida finaliza en empate.</p>
+                <p>El juego se puede llevar a cabo con o sin tiempo (fijo de 60 seg).  Puede comenzar jugador ROJO o AZUL</p>
+            </div>
+            <button id="btnReset">Reiniciar juego</button> <br>
+            <button id="btnTimer">Iniciar tiempo</button>  <br>
             <progress value="0" max="60" id="progressBar"></progress>
             <p> Tiempo restante: <span id="countdowntimer"> 60 </span> Segundos</p>
-            <div id="turno"></div>
-            <div id="reds">Fichas rojas: 21</div>
-            <div id="blues">Fichas azules: 21</div>
+            <div id="info">
+                <div id="turno"></div>
+                <div id="reds">Fichas rojas: 21</div>
+                <div id="blues">Fichas azules: 21</div>
+            </div>
+            <div id="winner"></div>
         </aside>
     </div>
 
