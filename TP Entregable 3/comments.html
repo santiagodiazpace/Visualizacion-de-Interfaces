@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Star Wars</title>
+    <!-- <link rel="icon" type="image/png" href="imagenes/mifavicon.png"/> -->
+</head>
+<body>
+    <header>
+        <img src="imagenes/logo_chico.png" alt="Star Wars logo">
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="characters.html">Personajes</a></li>
+                <li><a href="carrusel.html">Fotos</a></li>
+            </ul>
+            <ul>
+                <div id="saber"> </div>
+            </ul>
+        </nav>
+        <div id="countdown">
+            <p>
+                <span id="days"></span> días / <span id="hours"></span> horas / <span id="minutes"></span> minutos / <span id="seconds"></span> segundos
+            </p>
+        </div> 
+    </header>
+
+    <div id="back-comments">
+        <section id="comments">
+            <form id="form-comment" action="#">
+                <h2>Comentarios y saludos</h1>
+                <h3>Nombre</h3>
+                <input type="text" name="nombre" size="48" placeholder="Escribe tu nombre aquí" value="" required>
+                <h3>Comentario</h3>
+                <textarea name="mensaje" rows="10" cols="50" placeholder="Escribe tu mensaje aquí" value="" required></textarea>
+                <button id="btnEnviar" type="submit">Enviar</button>
+            </form>
+        </section>
+    </div>
+
+
+
+
+
+<!--     <audio src="music/StarWars-main-theme.mp3" controls autoplay>
+        <p>Tu navegador no implementa el elemento audio</p>
+    </audio> -->
+
+    <footer>
+
+    </footer>
+</body>
+
+<script src="js/script.js"></script>
+</html>
