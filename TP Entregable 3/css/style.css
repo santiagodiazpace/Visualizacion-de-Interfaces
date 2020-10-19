@@ -17,7 +17,7 @@ nav ul {
 
 nav li a {
     color: white;
-    font-size: 22px;
+    font-size: 18px;
     text-decoration: none;
 }
 
@@ -41,8 +41,11 @@ header {
 }
 
 #countdown {
-    color: white;
+    color:black;
     font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+    top: -80px;
+    left: 48px;
 }
 
 #conteiner {
@@ -54,6 +57,10 @@ footer {
     background-color: black;
     height: 80px;
     width: 1000px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
 }
 
 #layer1 {
@@ -87,6 +94,14 @@ footer {
 
 }
 
+#ap-conteiner {
+    position: relative;
+    left: 200px;
+    bottom: 1000px;
+    width: 100%;
+    height: 100%;
+}
+
 
 @keyframes agrandar {
     0% {transform:scale(0.75, 0.75);}
@@ -104,6 +119,12 @@ footer {
 }
 
 
+
+
+
+
+
+
 .card {
     position: relative;
     margin: auto;
@@ -112,10 +133,12 @@ footer {
 .card img {
     position: absolute;
     transition: all ease 1250ms;
+    border-radius: 15px;
 }
 .capa1 {
     left: 4px;
     top: 225px;
+    border-radius: 10px;
 }
 
 .capa2 {
@@ -144,6 +167,35 @@ transform: perspective(2000px) rotateX(0deg) rotateY(30deg) rotateZ(0deg) transl
     align-items: center;
     justify-content: space-around;
 }
+
+
+
+.charla1 {
+    border-radius: 10px;
+}
+
+.charla2 {
+    left: 480px;
+    top: 5px;
+}
+
+.card:hover .capa0 {
+transform: perspective(2000px) rotateX(0deg) rotateY(30deg) rotateZ(0deg) translateX(-30px) translateY(0px) translateZ(0px);
+}
+
+.card:hover .charla1 {
+transform: perspective(2000px) rotateX(0deg) rotateY(30deg) rotateZ(0deg) translateX(-30px) translateY(0px) translateZ(40px);
+}
+
+.card:hover .charla2 {
+transform: perspective(2000px) rotateX(0deg) rotateY(30deg) rotateZ(0deg) translateX(-30px) translateY(0px) translateZ(80px);
+}
+
+
+
+
+
+
 
 #back-characters {
     background-image: url("../imagenes/darth-vader-back.png"); 
@@ -179,7 +231,7 @@ transform: perspective(2000px) rotateX(0deg) rotateY(30deg) rotateZ(0deg) transl
     width: 300px;
     height: 30px;
     animation: move-saber 1s linear;
-    left: 25px;
+    left: 80px;
 }
 
 @keyframes move-saber {
@@ -199,6 +251,7 @@ transform: perspective(2000px) rotateX(0deg) rotateY(30deg) rotateZ(0deg) transl
     padding-right: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
+    border-radius: 15px;
 }
 
 #comments {
@@ -324,3 +377,108 @@ background: #000;
     display: none;
     }
 }
+
+
+#d-events {
+    background-image: url("../imagenes/back-events.png"); 
+	position: relative;
+	background-repeat: no-repeat;
+    width: 1000px;
+    height: 800px;
+    animation: swipeBack 150s linear infinite;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+
+/* .ac-container label:hover:after,.ac-container input:checked + label:hover:after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    right: 13px;
+    top: 7px;
+    background: transparent url(../imagenes/arrow_down.png) no-repeat center center;
+}
+
+.ac-container input:checked + label:hover:after {
+    background-image: url(../imagenes/arrow_up.png);
+} */
+
+
+
+
+.menu{
+    padding:0;
+    list-style:none;
+    width:600px;
+    font-size:18px;
+    font-family: Arial, Helvetica, sans-serif;
+    background:#c1c1c1;
+    border: 1px solid rgba(0,0,0,0.8);
+}
+ 
+.menu li a{
+    display: block;
+    border-bottom: 1px solid rgba(0,0,0, 0.2);
+    background:#3e3f44;
+    text-decoration:none;
+    color:#FFF;
+    text-shadow: 1px 0px 1px rgba(0,0,0,0.2);
+    filter: dropshadow(color=#000, offx=1, offy=0);
+    padding:10px;
+    padding-left:20px;
+}
+ 
+.menu li ul li a{
+    font-size:14px;
+    color:#47689d;
+    text-shadow: 1px 0px 1px rgba(255,255,255,0.5);
+    
+}
+ 
+.menu li a:hover{
+    background:black;
+    -moz-transition: background 0.3s ease-in;
+    -webkit-transition: background 0.3s ease-in;
+    -o-transition: background 0.3s ease-in;
+}
+ 
+.menu ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+    height:0;
+    overflow: hidden;
+    transition:1s;
+    -moz-transition:1s;
+    -webkit-transition:1s;
+}
+ 
+.menu li:hover ul{
+    height:200px;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+ 
+.menu ul li a{
+    background:#fafafa;
+}
+ 
+.menu ul li a:hover {
+    background: none repeat scroll 0 0 #ccc;
+    color: #fff;
+    -moz-transition: color 0.4s ease;
+    -webkit-transition: color 0.4s ease;
+    -o-transition: color 0.4s ease;
+}
+
+
+
+
+
+
+
