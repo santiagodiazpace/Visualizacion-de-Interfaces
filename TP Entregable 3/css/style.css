@@ -301,6 +301,22 @@ transform: perspective(2000px) rotateX(0deg) rotateY(30deg) rotateZ(0deg) transl
 
 /* COMENTARIOS Y SALUDOS */
 
+#animate {
+    background-image: url("../imagenes/big_nave.png");
+    position: absolute;
+    background-repeat: no-repeat;
+    top: 100px;
+    left: 30px;
+    width: 150px;
+    height: 150px;
+    animation: move 3s ease infinite;
+  }
+  
+  @keyframes move {
+    50% {
+       transform: translate(100px, 100px);
+    }
+  }
 
 #form-comment {
     font-family: Arial, Helvetica, sans-serif;
@@ -427,6 +443,24 @@ textarea {
 
 /* SLIDER FOTOS */
 
+#robot {
+    background-image: url("../imagenes/robot.png");
+    position: absolute;
+    background-repeat: no-repeat;
+    top: 650px;
+    left: 30px;
+    width: 100px;
+    height: 150px;
+    animation: move_nave 5s ease infinite;
+    z-index: 3;
+  }
+  
+@keyframes move_nave {
+    50% {
+        transform: translate(700px, 0px);
+    }
+}
+
 .slider {
 width: 500px;
 text-align: center;
@@ -497,14 +531,33 @@ top: 1px;
 background: #000;
 }
 
-@supports (scroll-snap-type) {
+/* @supports (scroll-snap-type) {
 .slider > a {
     display: none;
     }
-}
+} */
 
 
 /* EVENTOS */
+
+#nave {
+    background-image: url("../imagenes/nave_2.png");
+    position: absolute;
+    background-repeat: no-repeat;
+    top: 300px;
+    left: 30px;
+    width: 100px;
+    height: 100px;
+    animation: move_nave 5s ease infinite;
+    z-index: 3;
+  }
+  
+@keyframes move_nave {
+    50% {
+        transform: translate(700px, 0px);
+    }
+}
+
 
 #d-events {
     background-image: url("../imagenes/back-events.png"); 
