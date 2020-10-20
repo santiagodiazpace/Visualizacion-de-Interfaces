@@ -6,7 +6,7 @@
     background-repeat: no-repeat;
     width: 300px;
     height: 70px;
-    animation: agrandar-titulo 20s linear infinite;
+    animation: agrandar-titulo 2s linear infinite;
 }
 
 @keyframes agrandar-titulo {
@@ -55,6 +55,9 @@ header {
     justify-content: space-around;
 }
 
+
+/* COUNTDOWN */
+
 #countdown {
     color:black;
     font-family: Arial, Helvetica, sans-serif;
@@ -63,31 +66,6 @@ header {
     left: 48px;
     width: 230px;
 }
-
-/* .ap-animated {
-    animation: destacar 2s linear infinite;
-}
-
-@keyframes destacar {
-    0% {transform:scale(1, 1);}
-    100% {transform:scale(1.2, 1.2);}
-}
-
-.cd-animated {
-    animation: destacar-countdown 2s linear infinite;
-}
-
-@keyframes destacar-countdown {
-    0% {transform:scale(1, 1);}
-    100% {transform:scale(1.2, 1.2);}
-} */
-
-
-
-
-
-
-
 
 #conteiner {
     height: 1745px;
@@ -302,6 +280,9 @@ transform: perspective(2000px) rotateX(0deg) rotateY(30deg) rotateZ(0deg) transl
     100% { background-position: -500px;}
 }
 
+
+/* HEADER */
+
 #saber {
     background-image: url("../imagenes/sable.png");
     position: relative;
@@ -317,9 +298,13 @@ transform: perspective(2000px) rotateX(0deg) rotateY(30deg) rotateZ(0deg) transl
     100% { background-position: 0px;}
 }
 
+
+/* COMENTARIOS Y SALUDOS */
+
+
 #form-comment {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: white;
+    background-color: #ced1d3;
     padding: 20 px 20 px 20 px 20 px;
     display: flex;
     flex-direction: column;
@@ -341,9 +326,84 @@ transform: perspective(2000px) rotateX(0deg) rotateY(30deg) rotateZ(0deg) transl
     justify-content: space-around;
 }
 
-#btnEnviar {
-
+textarea {
+    font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.btn:link, .btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 40px;
+    display: inline-block;
+    border-radius: 100px;
+    transition: all .2s;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-green {
+    background-color: rgb(10, 173, 78);
+    color: white;
+}
+
+.btn::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s;
+}
+
+.btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
+
+.btn-animated {
+    animation: moveInBottom 5s ease-out;
+    animation-fill-mode: backwards;
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+#input-form:hover {
+    border-radius: 30px;
+    transform: scaleX(1.2) scaleY(1.2);
+    text-transform: uppercase;
+}
+
+#area-form:hover {
+    border-radius: 10px;
+    transform: scaleX(1.2) scaleY(1.2);
+    text-transform: uppercase;
+}
+
+
 
 #back-comments {
     background-image: url("../imagenes/comments-back.png"); 
@@ -353,7 +413,7 @@ transform: perspective(2000px) rotateX(0deg) rotateY(30deg) rotateZ(0deg) transl
     height: 800px;
     animation: swipeBack 100s linear infinite;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
 }
@@ -363,7 +423,10 @@ transform: perspective(2000px) rotateX(0deg) rotateY(30deg) rotateZ(0deg) transl
     100% { background-position: -500px;}
 }
 
-  
+
+
+/* SLIDER FOTOS */
+
 .slider {
 width: 500px;
 text-align: center;
@@ -488,6 +551,7 @@ background: #000;
 .menu li a:hover{
     background:black;
     transition: background 0.3s ease-in;
+    color: yellow;
 }
  
 .menu ul{
@@ -558,7 +622,8 @@ user-select: none;
 
 /* Estilo del boton cuando se pasa el mouse por encima*/
 .burguer label:hover{
-background: grey;
+background: yellow;
+color: black;
 }
 
 /* Estilo del boton cuando el menú está expandido*/
