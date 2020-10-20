@@ -1,6 +1,25 @@
-// Fecha avant premier
+"use strict";
 
-const DATE_TARGET = new Date('11/10/2020 0:01 AM');                  
+// Loader
+  
+let myLoader = document.querySelector("#loader");
+let myText = document.querySelector("#text-loader");
+
+function initLoader() {
+    setTimeout(function(){ 
+        myLoader.classList.remove("loaderVisible");
+        myLoader.classList.add("loaderOculto");
+        myText.classList.remove("loaderVisible");
+        myText.classList.add("loaderOculto");     
+      }, 3000);
+}
+
+initLoader();
+
+
+// Countdown
+
+const DATE_TARGET = new Date('11/10/2020 0:01 AM');    //Fecha avant premier               
 
 const SPAN_DAYS = document.querySelector('span#days');
 const SPAN_HOURS = document.querySelector('span#hours');
@@ -41,3 +60,5 @@ window.onscroll=function() {
     document.getElementById("avant-premier").className="test2";
     }
 }
+
+

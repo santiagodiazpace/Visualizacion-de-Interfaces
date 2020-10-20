@@ -1,3 +1,49 @@
+#loader {
+    position: relative;
+    top: 10%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    margin: -42px 0 0 -12px;
+    background-image: url(../imagenes/loader_image.png);
+    background-repeat: no-repeat;
+    transform: rotate(45deg);
+    animation: spin 1s infinite linear;
+    z-index: 10;
+
+  }
+  
+@keyframes spin {
+    0% { transform:rotate(0deg); }
+    100% { transform:rotate(360deg); }
+}
+
+.loaderVisible {
+    position: fixed;
+}
+
+.loaderOculto {
+    display: none;
+}
+
+#loader-container {
+    color: yellow;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 150px;
+    height: 150px;
+    left: 0px;
+    top: 0px;
+    margin-top: 30px;
+    padding-top: 50px;
+    z-index: 10;
+}
+
+#text-loader {
+    padding-top: 15px;
+    padding-left: 70px;
+}
+
+
 #titulo {
     background-image: url("../imagenes/personajes.png");
     position: relative;
@@ -89,7 +135,11 @@ footer {
     width: 1000px;
     height: 1750px;
     animation: swipeBack 160s linear infinite;
-	background-size: cover;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+/*     justify-content: space-around; */
 }
 
 #layer2 {
@@ -565,7 +615,7 @@ background: #000;
 	background-repeat: no-repeat;
     width: 1000px;
     height: 800px;
-    animation: swipeBack 150s linear infinite;
+    animation: swipeBack 200s linear infinite;
     display: flex;
     flex-direction: row;
     align-items: center;
