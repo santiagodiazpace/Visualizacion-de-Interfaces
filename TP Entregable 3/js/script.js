@@ -1,5 +1,6 @@
+// Fecha avant premier
 
-const DATE_TARGET = new Date('11/10/2020 0:01 AM');                  // Fecha avant premier
+const DATE_TARGET = new Date('11/10/2020 0:01 AM');                  
 
 const SPAN_DAYS = document.querySelector('span#days');
 const SPAN_HOURS = document.querySelector('span#hours');
@@ -27,3 +28,16 @@ function updateCountdown() {
 
 updateCountdown();
 setInterval(updateCountdown, MILLISECONDS_OF_A_SECOND);
+
+
+
+// Scroll
+
+window.onscroll=function() {
+    if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+    document.querySelector("#millenium").className="millenium-animated";
+    document.querySelector("#ship").className="ship-animated";
+    } else {
+    document.getElementById("avant-premier").className="test2";
+    }
+}
