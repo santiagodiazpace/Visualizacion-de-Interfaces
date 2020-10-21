@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Star Wars</title>
+    <link rel="icon" type="image/png" href="imagenes/mifavicon.png"/>
+</head>
+<body>
+    <header>
+        <img id="logo" src="imagenes/logo_chico.png" alt="Star Wars logo">
+        <div id="loader-container">
+            <div id="loader"></div>
+            <p id="text-loader">Cargando...</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="characters.html">Personajes</a></li>
+                <li><a href="carrusel.html">Fotos</a></li>
+                <li><a href="comments.html">Comentarios</a></li>
+                <li><a href="events.html">Eventos</a></li>
+            </ul>
+            <ul>
+                <div id="saber"> </div>
+            </ul>
+        </nav>
+        <div class="burguer">
+            <input type="checkbox" id="menu">
+            <label for="menu"> ☰ </label>
+            <ul>
+                <li><a class="link" href="index.html">Home</a></li>
+                <li><a class="link" href="characters.html">Personajes</a></li>
+                <li><a class="link" href="carrusel.html">Fotos</a></li>
+                <li><a class="link" href="comments.html">Comentarios</a></li>
+                <li><a class="link" href="events.html">Eventos</a></li>
+                <li><a class="link" href="https://www.youtube.com/results?search_query=star+wars" target=”_blank”>Videos</a></li>
+                <li><a class="link" href= "https://www.marvel.com/comics/events/327/star_wars" target=”_blank”>Comics</a></li>
+                <li><a class="link" href="https://es.wikipedia.org/wiki/Star_Wars" target=”_blank”>Más</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section id=back-carrusel>
+
+        <div class="slider">
+            <a href="#slide-1">1</a>
+            <a href="#slide-2">2</a>
+            <a href="#slide-3">3</a>
+            <a href="#slide-4">4</a>
+            <a href="#slide-5">5</a>
+        
+            <div class="slides">
+                <div id="slide-1">
+                    <img src="imagenes/photo1.png" alt="">
+                </div>
+                <div id="slide-2">
+                    <img src="imagenes/photo2.png" alt="">
+                </div>
+                <div id="slide-3">
+                    <img src="imagenes/photo3.png" alt="">
+                </div>
+                <div id="slide-4">
+                    <img src="imagenes/photo4.png" alt="">
+                </div>
+                <div id="slide-5">
+                    <img src="imagenes/photo5.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div id="robot"></div>
+    </section>
+
+    <footer>
+        <audio src="music/StarWars-main-theme.mp3" controls autoplay>
+            <p>Tu navegador no implementa el elemento audio</p>
+        </audio>
+        <img src="imagenes/social media icons.png" alt="Redes sociales">
+    </footer>
+</body>
+
+<script src="js/script.js"></script>
+</html>
