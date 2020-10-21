@@ -44,6 +44,20 @@
 }
 
 
+<<<<<<< HEAD
+=======
+#scroll {
+    background-image: url("../imagenes/scroll.png");
+    position: relative;
+    left: 730px;
+    bottom: 1800px;
+    background-repeat: no-repeat;
+    width: 80px;
+    height: 80px;
+    z-index: 10;
+}
+
+>>>>>>> gh-pages
 #titulo {
     background-image: url("../imagenes/personajes.png");
     position: relative;
