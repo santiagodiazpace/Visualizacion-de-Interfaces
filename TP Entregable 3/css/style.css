@@ -44,8 +44,6 @@
 }
 
 
-<<<<<<< HEAD
-=======
 #scroll {
     background-image: url("../imagenes/scroll.png");
     position: relative;
@@ -57,7 +55,6 @@
     z-index: 10;
 }
 
->>>>>>> gh-pages
 #titulo {
     background-image: url("../imagenes/personajes.png");
     position: relative;
