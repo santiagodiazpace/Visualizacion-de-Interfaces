@@ -53,7 +53,7 @@ setInterval(updateCountdown, MILLISECONDS_OF_A_SECOND);
 // Scroll
 
 window.onscroll=function() {
-    if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+    if (document.body.scrollTop > 900 || document.documentElement.scrollTop > 900) {
     document.querySelector("#millenium").className="millenium-animated";
     document.querySelector("#ship").className="ship-animated";
     } else {

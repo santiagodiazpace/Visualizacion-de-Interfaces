@@ -707,58 +707,57 @@ background: #000;
 }
   
 .burguer input {
-display: none;
+    display: none;
 }
 
 .burguer label {
-box-sizing: border-box;
-display: inline-block;
-border: 1px solid black;
-border-radius: 5px;
-width: 30px;
-height: 30px;
-line-height: 30px;
-font-weight: bold;
-text-align: center;
-user-select: none;
+    box-sizing: border-box;
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
+    text-align: center;
+    user-select: none;
 }
 
-/* Estilo del boton cuando se pasa el mouse por encima*/
 .burguer label:hover{
-background: yellow;
-color: black;
+    background: yellow;
+    color: black;
 }
 
-/* Estilo del boton cuando el menú está expandido*/
 .burguer input:checked ~ label {
-background:red;
-color: black; 
+    background:red;
+    color: black; 
 }
 
 .burguer ul{
-margin-top:0px;
-padding: 0;
-width: 150px;
-height: 15px;
-z-index: 5;
+    margin-top:0px;
+    padding: 0;
+    width: 150px;
+    height: 15px;
+    z-index: 5;
 }
-
 
 .burguer li {
-display: block;
-background: lightgrey;
-margin: 0;
-padding: 10px;
-list-style: none;
-border-bottom: 1px solid grey;
+    display: block;
+    background: lightgrey;
+    margin: 0;
+    padding: 10px;
+    list-style: none;
+    border-bottom: 1px solid grey;
 }
 
-/*Estilo cuando el mouse pasa encima de cada link del menu*/
 .burguer li:hover {
-filter: brightness(110%);
+    filter: brightness(110%);
 }
-  
-  
+
+.link {
+    color: black;
+    text-decoration: none;
+}  
   
 
 
