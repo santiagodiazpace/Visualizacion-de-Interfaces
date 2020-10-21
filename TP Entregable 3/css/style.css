@@ -44,6 +44,17 @@
 }
 
 
+#scroll {
+    background-image: url("../imagenes/scroll.png");
+    position: relative;
+    left: 730px;
+    bottom: 1800px;
+    background-repeat: no-repeat;
+    width: 80px;
+    height: 80px;
+    z-index: 10;
+}
+
 #titulo {
     background-image: url("../imagenes/personajes.png");
     position: relative;
